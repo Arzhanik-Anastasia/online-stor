@@ -1,9 +1,10 @@
-import noUiSlider, { target } from 'nouislider';
+import { target } from 'nouislider';
 import { BaseComponent } from '../../../common/baseComponent';
 import '../../../../../node_modules/nouislider/dist/nouislider.css';
 import './stockRange.css';
 import { IProduct } from '../../../../types';
 import data from '../../../../data';
+import Slider from '../slider/slider';
 
 class StockRange extends BaseComponent {
   constructor(parentNode: HTMLElement) {
@@ -21,22 +22,13 @@ class StockRange extends BaseComponent {
     </div>
     `;
     parentNode.append(this.element);
-    this.createSlider();
-  }
-
-  private createSlider(): void {
     const targetElement = <target> this.element.querySelector('#stock-slider');
-    const maxObject: IProduct = data.reduce((prev, current) => (prev > current ? prev : current));
-    const minObject: IProduct = data.reduce((prev, current) => (prev > current ? current : prev));
-    noUiSlider.create(targetElement, {
-      start: [minObject.stock, maxObject.stock],
-      connect: true,
-      range: {
-        min: minObject.stock,
-        max: maxObject.stock,
-      },
-      step: 1,
-    });
+    const min: IProduct = data.reduce((prev, current) => (prev > current ? current : prev));
+    const minValue = min.stock;
+    const max: IProduct = data.reduce((prev, current) => (prev > current ? prev : current));
+    const maxValue = max.stock;
+    const slider = new Slider();
+    slider.createSlider(targetElement, minValue, maxValue);
   }
 }
 export default StockRange;

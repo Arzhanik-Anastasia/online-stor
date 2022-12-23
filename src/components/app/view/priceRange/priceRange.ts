@@ -4,6 +4,7 @@ import '../../../../../node_modules/nouislider/dist/nouislider.css';
 import './priceRange.css';
 import { IProduct } from '../../../../types';
 import data from '../../../../data';
+import Slider from '../slider/slider';
 
 class PriceRange extends BaseComponent {
   constructor(parentNode: HTMLElement) {
@@ -21,22 +22,14 @@ class PriceRange extends BaseComponent {
     </div>
     `;
     parentNode.append(this.element);
-    this.createSlider();
-  }
 
-  private createSlider():void {
     const targetElement = <target> this.element.querySelector('#price-slider');
-    const maxObject: IProduct = data.reduce((prev, current) => (prev > current ? prev : current));
-    const minObject: IProduct = data.reduce((prev, current) => (prev > current ? current : prev));
-    noUiSlider.create(targetElement, {
-      start: [minObject.price, maxObject.price],
-      connect: true,
-      range: {
-        min: minObject.price,
-        max: maxObject.price,
-      },
-      step: 1,
-    });
+    const min: IProduct = data.reduce((prev, current) => (prev > current ? current : prev));
+    const minValue = min.price;
+    const max: IProduct = data.reduce((prev, current) => (prev > current ? prev : current));
+    const maxValue = max.price;
+    const slider = new Slider();
+    slider.createSlider(targetElement, minValue, maxValue);
   }
 }
 export default PriceRange;
