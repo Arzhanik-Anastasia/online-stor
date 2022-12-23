@@ -7,5 +7,3 @@ export class BaseComponent {
     this.element.textContent = content;
   }
 }
-
-export default BaseComponent;
