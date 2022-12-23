@@ -21,8 +21,6 @@ export default class App {
 
   private static changeState(): void {
     window.addEventListener('hashchange', () => {
-      const { hash } = window.location;
-      localStorage.setItem('current-page', hash);
       this.cleanPage();
       this.renderPage();
     });
@@ -31,13 +29,11 @@ export default class App {
   static renderPage(): void {
     document.body.append(this.header.element);
     document.body.append(this.footer.element);
-    const path: string | null = localStorage.getItem('current-page');
+    const path = window.location.hash;
+    const idProduct:number = +path.split('=')[1];
     let currentPage: null | HomePage | ProductPage | CartPage | NotFoundPage = null;
     if (path) {
-      if (path === '') {
-        currentPage = new HomePage();
-      } else if (path.includes('product')) {
-        const idProduct:number = +path.split('=')[1];
+      if (path.includes('product')) {
         currentPage = new ProductPage(idProduct);
       } else if (path === '#cart') {
         currentPage = new CartPage();

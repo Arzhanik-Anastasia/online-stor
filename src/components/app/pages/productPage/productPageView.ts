@@ -3,7 +3,6 @@ import { BaseComponent } from '../../../common/baseComponent';
 class ProductPage extends BaseComponent {
   constructor(id: number) {
     super('main', 'main', '');
-    this.renderPage();
   }
 
   public renderPage(): void {

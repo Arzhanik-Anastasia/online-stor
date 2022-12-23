@@ -20,7 +20,6 @@ class HomePage extends BaseComponent {
   constructor() {
     super('main', 'main', '');
     this.aside = new Aside();
-    this.renderPage();
   }
 
   public renderPage(): void {
