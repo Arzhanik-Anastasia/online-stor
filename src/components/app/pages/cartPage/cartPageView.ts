@@ -1,5 +1,4 @@
-/* eslint-disable import/no-named-as-default */
-import BaseComponent from '../../../common/baseComponent';
+import { BaseComponent } from '../../../common/baseComponent';
 
 class CartPage extends BaseComponent {
   constructor() {

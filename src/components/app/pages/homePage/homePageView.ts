@@ -1,9 +1,5 @@
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-console */
-
-import BaseComponent from '../../../common/baseComponent';
-// import Aside from '../../view/aside/aside';
+import { BaseComponent } from '../../../common/baseComponent';
+import Aside from '../../view/aside/aside';
 
 const DEFAULT_FILTERS = {
   brand: ['Nike', 'Adidas', 'Jordan', 'Reebok', 'Joma', 'Puma'],
@@ -19,18 +15,17 @@ const DEFAULT_FILTERS = {
 export const applyFilters = { ...DEFAULT_FILTERS };
 
 class HomePage extends BaseComponent {
-  // aside: Aside;
+  aside: Aside;
 
   constructor() {
     super('main', 'main', '');
-    // this.aside = new Aside();
+    this.aside = new Aside();
     this.renderPage();
   }
 
   public renderPage(): void {
-    console.log('renderPage: Home');
     const wrapperSection = new BaseComponent('div', 'section__products', '');
-    // this.element.append(this.aside.element);
+    this.element.append(this.aside.element);
     this.element.append(wrapperSection.element);
     document.querySelector('header')?.after(this.element);
   }

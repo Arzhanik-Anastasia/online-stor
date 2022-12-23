@@ -1,4 +1,4 @@
-import BaseComponent from '../../../common/baseComponent';
+import { BaseComponent } from '../../../common/baseComponent';
 
 class ProductPage extends BaseComponent {
   constructor(id: number) {

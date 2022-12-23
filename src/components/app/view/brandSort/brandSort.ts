@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Brand } from '../../../../data';
 import { BaseComponent } from '../../../common/baseComponent';
 import './brandSort.css';
@@ -7,12 +5,9 @@ import './brandSort.css';
 const brands = Object.values(Brand);
 
 class BrandSort extends BaseComponent {
-  appFilters: any;
-
   constructor(parentNode: HTMLElement) {
     super('div', 'controls__brands', '');
     this.renderBlock(parentNode);
-    /*     this.element.onchange = () => this.onChangeBrand(); */
   }
 
   private renderBlock(parentNode:HTMLElement):void {
@@ -30,17 +25,6 @@ class BrandSort extends BaseComponent {
     this.element.append(brandsList.element);
     parentNode.append(this.element);
   }
-
-/*   onChangeBrand() {
-    const input = this.element.querySelectorAll('input');
-    const brandsLS: string[] = [];
-    input.forEach((i) => {
-      if (i.checked) {
-        brandsLS.push(i.value);
-      }
-    });
-    if (brandsLS.length > 0) this.appFilters.brand = brandsLS;
-  } */
 }
 
 export default BrandSort;

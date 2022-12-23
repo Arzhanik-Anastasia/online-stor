@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-console */
 import { Category } from '../../../../data';
 import { BaseComponent } from '../../../common/baseComponent';
 import './categorySort.css';
