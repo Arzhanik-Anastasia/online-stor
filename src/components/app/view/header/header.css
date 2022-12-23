@@ -1,0 +1,41 @@
+.header {
+  background-color: rgb(150 113 235 / 34%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+  -23px 0 20px -23px rgba(0, 0, 0, .7),
+  23px 0 20px -23px rgba(0, 0, 0, .7),
+  0 0 40px rgba(0, 0, 0, .1) inset;
+}
+.header__logo {
+  margin: auto 0;
+}
+
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.header__link {
+    text-decoration: none;
+    font-size: 40px;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    color: black;
+}
+
+.header__cart {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    align-items: center;
+}
+
+.cart__img {
+    width: 83px;
+    height: 80px;
+    background: url('./../../../../assets/svg/cart.svg') ;
+}
+
+.header__count {
+  font-size: 20px;
+}

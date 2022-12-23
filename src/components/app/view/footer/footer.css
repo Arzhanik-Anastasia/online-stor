@@ -1,0 +1,29 @@
+.footer {
+  background-color: rgb(150 113 235 / 34%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+  -23px 0 20px -23px rgba(0, 0, 0, .7),
+  23px 0 20px -23px rgba(0, 0, 0, .7),
+  0 0 40px rgba(0, 0, 0, .1) inset;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__rss img {
+  display: block;
+  width: 70px;
+  height: 70px;
+}
+
+.footer__gits {
+  display: flex;
+  gap: 30px;
+}
+
+.footer__git img{
+  display: block;
+  width: 50px;
+  height: 50px;
+}
