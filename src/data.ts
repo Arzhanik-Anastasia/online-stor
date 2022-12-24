@@ -1,5 +1,16 @@
 import { IProduct } from './types';
 
+export const DEFAULT_FILTERS = {
+  brands: ['nike', 'adidas', 'jordan', 'reebok', 'joma', 'puma'],
+  colors: ['синий', 'белый', 'черный', 'зеленый', 'красный'],
+  category: ['lifestyle', 'running', 'boots', 'slides', 'basketBall'],
+  minStock: 1,
+  maxStock: 200,
+  minPrice: 100,
+  maxPrice: 500,
+  sort: 'sort-name-max',
+};
+
 export enum Brand {
   'Nike' = 'Nike',
   'Asics' = 'Asics',
