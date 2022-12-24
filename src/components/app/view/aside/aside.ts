@@ -7,7 +7,7 @@ import StockRange from '../stockRange/stockRange';
 
 import './aside.css';
 
-class Aside extends BaseComponent {
+export class Aside extends BaseComponent {
   stockRange: StockRange;
 
   priceRange: PriceRange;
@@ -27,5 +27,3 @@ class Aside extends BaseComponent {
     this.colorSort = new ColorSort(this.element);
   }
 }
-
-export default Aside;
