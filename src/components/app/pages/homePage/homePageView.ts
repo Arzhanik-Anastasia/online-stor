@@ -1,5 +1,7 @@
 import { DEFAULT_FILTERS } from '../../../../data';
+import { IFilters } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
+import { FilterController } from '../../controls/filterController';
 import { HomePageController } from '../../controls/homePageController';
 import { HomePageListener } from '../../controls/homePageListener';
 import { Aside } from '../../view/aside/aside';
@@ -20,10 +22,13 @@ class HomePage extends BaseComponent {
 
   homePageController: HomePageController;
 
+  filters: IFilters;
+
   constructor() {
     super('main', 'main', '');
+    this.filters = new FilterController().getFilter();
     this.aside = new Aside();
-    this.sort = new Sort();
+    this.sort = new Sort(this.filters.sort);
     this.productsList = new ProductList();
     this.homePageListener = new HomePageListener();
     this.homePageController = new HomePageController();

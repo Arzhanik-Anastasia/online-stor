@@ -2,9 +2,13 @@ import { BaseComponent } from '../../../common/baseComponent';
 import './sort.css';
 
 export class Sort extends BaseComponent {
-  constructor() {
+  loadSort: string;
+
+  constructor(sort: string) {
     super('div', 'sort', '');
     this.renderSortBlock();
+    this.loadSort = sort;
+    this.loadingValue();
   }
 
   private renderSortBlock(): void {
@@ -18,5 +22,9 @@ export class Sort extends BaseComponent {
       </select>
       <button class="reset__filters">Сброс фильтров</button>
     `;
+  }
+
+  loadingValue():void {
+    (this.element.querySelector('select') as HTMLSelectElement).value = this.loadSort;
   }
 }
