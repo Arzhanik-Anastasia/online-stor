@@ -13,7 +13,16 @@ export class HomePageListener {
     this.homePageController = new HomePageController();
   }
 
-  addListenerToSortSelect(): void {
+  public initListener():void {
+    this.addListenerToSortSelect();
+    this.addListenerCategory();
+    this.addListenerColors();
+    this.addListenerBrand();
+    this.addListenerPrice();
+    this.addListenerStock();
+  }
+
+  private addListenerToSortSelect(): void {
     const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
     sortSelect.addEventListener('change', () => {
       this.filtersController.changeFilterSort(sortSelect.value);
@@ -21,7 +30,7 @@ export class HomePageListener {
     });
   }
 
-  addListenerCategory(): void {
+  private addListenerCategory(): void {
     const controlsCategory = document.querySelector('.categories__list') as HTMLDivElement;
     controlsCategory.addEventListener('click', (e: Event) => {
       if ((e.target as HTMLButtonElement).classList.contains('category__item')) {
@@ -42,7 +51,7 @@ export class HomePageListener {
     });
   }
 
-  addListenerColors():void {
+  private addListenerColors():void {
     const controlsColor = document.querySelector('.controls__colors') as HTMLDivElement;
     controlsColor.addEventListener('click', (e: Event) => {
       if ((e.target as HTMLButtonElement).classList.contains('colors-item')) {
@@ -63,7 +72,7 @@ export class HomePageListener {
     });
   }
 
-  addListenerBrand():void {
+  private addListenerBrand():void {
     const controlsBrand = document.querySelector('.controls__brands') as HTMLDivElement;
     controlsBrand.addEventListener('click', () => {
       let brandsArr: string [] = [];
@@ -80,7 +89,7 @@ export class HomePageListener {
     });
   }
 
-  addListenerPrice():void {
+  private addListenerPrice():void {
     const priceSlider = <target> document.getElementById('price-slider')!;
     priceSlider.noUiSlider!.on('update', () => {
       const priceSliderGet = priceSlider.noUiSlider!.get(true);
@@ -96,7 +105,7 @@ export class HomePageListener {
     });
   }
 
-  addListenerStock():void {
+  private addListenerStock():void {
     const stockSlider = <target> document.getElementById('stock-slider')!;
     stockSlider.noUiSlider!.on('update', () => {
       const stockSliderGet = stockSlider.noUiSlider!.get(true);

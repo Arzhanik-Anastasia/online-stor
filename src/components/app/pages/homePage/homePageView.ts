@@ -43,12 +43,7 @@ class HomePage extends BaseComponent {
     this.element.append(wrapper);
     document.querySelector('header')?.after(this.element);
     this.homePageController.renderList();
-    this.homePageListener.addListenerToSortSelect();
-    this.homePageListener.addListenerCategory();
-    this.homePageListener.addListenerColors();
-    this.homePageListener.addListenerBrand();
-    this.homePageListener.addListenerPrice();
-    this.homePageListener.addListenerStock();
+    this.homePageListener.initListener();
   }
 }
 
