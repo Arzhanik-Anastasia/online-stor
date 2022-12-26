@@ -20,6 +20,7 @@ export class HomePageListener {
     this.addListenerBrand();
     this.addListenerPrice();
     this.addListenerStock();
+    this.addListenerReset();
   }
 
   private addListenerToSortSelect(): void {
@@ -116,6 +117,25 @@ export class HomePageListener {
       const wrapperMaxStock = (document.querySelector('.stock-max') as HTMLElement);
       wrapperMaxStock.textContent = (Math.round(+(maxStock))).toString();
       this.filtersController.changeSliderStock(+minStock, +maxStock);
+      this.homePageController.sortCards();
+      this.homePageController.applyFilter();
+    });
+  }
+
+  private addListenerReset():void {
+    const stockSlider = <target> document.getElementById('stock-slider')!;
+    const priceSlider = <target> document.getElementById('price-slider')!;
+    const btnReset = document.querySelector('.reset__filters') as HTMLButtonElement;
+    btnReset.addEventListener('click', () => {
+      const allActiveElement = document.querySelectorAll('.active');
+      allActiveElement.forEach((elem) => {
+        elem.classList.remove('active');
+      });
+      const allBrands = Array.from(document.querySelectorAll('.brands__input')) as HTMLInputElement[];
+      allBrands.forEach((elem) => { elem.checked = false; });
+      stockSlider.noUiSlider!.set([DEFAULT_FILTERS.minStock, DEFAULT_FILTERS.maxStock]);
+      priceSlider.noUiSlider!.set([DEFAULT_FILTERS.minPrice, DEFAULT_FILTERS.maxPrice]);
+      this.filtersController.resetFilter();
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
     });

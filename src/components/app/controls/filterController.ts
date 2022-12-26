@@ -48,4 +48,9 @@ export class FilterController {
     this.filters.maxStock = max;
     localStorage.setItem('store-filter', JSON.stringify(this.filters));
   }
+
+  public resetFilter(): void {
+    this.filters = { ...DEFAULT_FILTERS };
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
 }
