@@ -5,20 +5,20 @@ export const DEFAULT_FILTERS = {
   colors: ['синий', 'белый', 'черный', 'зеленый', 'красный'],
   category: ['lifestyle', 'running', 'boots', 'slides', 'basketBall'],
   minStock: 1,
-  maxStock: 200,
-  minPrice: 100,
-  maxPrice: 500,
+  maxStock: 216,
+  minPrice: 110,
+  maxPrice: 490,
   sort: 'sort-name-max',
 };
 
 export enum Brand {
-  'Nike' = 'Nike',
-  'Asics' = 'Asics',
-  'Jordan' = 'Jordan',
-  'Adidas' = 'Adidas',
-  'Reebok' = 'Reebok',
-  'Joma' = 'Joma',
-  'Puma' = 'Puma',
+  'nike' = 'nike',
+  'asics' = 'asics',
+  'jordan' = 'jordan',
+  'adidas' = 'adidas',
+  'reebok' = 'reebok',
+  'joma' = 'joma',
+  'puma' = 'puma',
 }
 export enum Category {
   'lifestyle' = 'lifestyle',
@@ -32,7 +32,7 @@ const data: IProduct[] = [
   {
     id: 1,
     name: 'Asics Gel Kayano 26 X004-604',
-    brand: Brand.Asics,
+    brand: Brand.asics,
     category: Category.running,
     price: 180,
     stock: 18,
@@ -46,7 +46,7 @@ const data: IProduct[] = [
   {
     id: 2,
     name: 'Asics Gel-Lyte III OG White',
-    brand: Brand.Asics,
+    brand: Brand.asics,
     category: Category.lifestyle,
     price: 210,
     stock: 5,
@@ -60,7 +60,7 @@ const data: IProduct[] = [
   {
     id: 3,
     name: 'NIKE AIR FLIGHT 89 CHICAGO 89',
-    brand: Brand.Nike,
+    brand: Brand.nike,
     category: Category.basketball,
     price: 190,
     stock: 1,
@@ -74,7 +74,7 @@ const data: IProduct[] = [
   {
     id: 4,
     name: 'NIKE KYRIE 7 LCONS OF SPORT',
-    brand: Brand.Nike,
+    brand: Brand.nike,
     category: Category.basketball,
     price: 320,
     stock: 18,
@@ -88,7 +88,7 @@ const data: IProduct[] = [
   {
     id: 5,
     name: 'Nike Air Jordan',
-    brand: Brand.Nike,
+    brand: Brand.nike,
     category: Category.lifestyle,
     price: 300,
     stock: 1,
@@ -102,7 +102,7 @@ const data: IProduct[] = [
   {
     id: 6,
     name: 'AIR JORDAN 3 SE RED CEMENT CK5692-600',
-    brand: Brand.Jordan,
+    brand: Brand.jordan,
     category: Category.lifestyle,
     price: 410,
     stock: 26,
@@ -116,7 +116,7 @@ const data: IProduct[] = [
   {
     id: 7,
     name: 'ADIDAS SUPERSTAR FTWWHT REAPNK REAPNK CG6608',
-    brand: Brand.Adidas,
+    brand: Brand.adidas,
     category: Category.lifestyle,
     price: 200,
     stock: 6,
@@ -130,7 +130,7 @@ const data: IProduct[] = [
   {
     id: 8,
     name: 'JUST DON X JORDAN LEGACY 312 GHOST GREEN',
-    brand: Brand.Jordan,
+    brand: Brand.jordan,
     category: Category.lifestyle,
     price: 280,
     stock: 6,
@@ -144,7 +144,7 @@ const data: IProduct[] = [
   {
     id: 9,
     name: 'BOOST ADIDAS ORIGINALS ZX930X EQT BOOST 3M',
-    brand: Brand.Adidas,
+    brand: Brand.adidas,
     category: Category.running,
     price: 216,
     stock: 46,
@@ -158,7 +158,7 @@ const data: IProduct[] = [
   {
     id: 10,
     name: 'Adilette CF+ mono',
-    brand: Brand.Adidas,
+    brand: Brand.adidas,
     category: Category.slides,
     price: 190,
     stock: 216,
@@ -172,7 +172,7 @@ const data: IProduct[] = [
   {
     id: 11,
     name: 'REEBOK RUN R96 CN4606',
-    brand: Brand.Reebok,
+    brand: Brand.reebok,
     category: Category.lifestyle,
     price: 203,
     stock: 16,
@@ -186,7 +186,7 @@ const data: IProduct[] = [
   {
     id: 12,
     name: 'REEBOK RUN R8 CN406',
-    brand: Brand.Reebok,
+    brand: Brand.reebok,
     category: Category.lifestyle,
     price: 319,
     stock: 16,
@@ -200,7 +200,7 @@ const data: IProduct[] = [
   {
     id: 13,
     name: 'RBK FULGERE SLIDE',
-    brand: Brand.Reebok,
+    brand: Brand.reebok,
     category: Category.slides,
     price: 110,
     stock: 1,
@@ -214,7 +214,7 @@ const data: IProduct[] = [
   {
     id: 14,
     name: 'Adidas Predator Edge.3 LL FG/бутсы',
-    brand: Brand.Adidas,
+    brand: Brand.adidas,
     category: Category.boots,
     price: 490,
     stock: 16,
@@ -228,7 +228,7 @@ const data: IProduct[] = [
   {
     id: 15,
     name: 'Joma Top Flex Indoor',
-    brand: Brand.Joma,
+    brand: Brand.joma,
     category: Category.boots,
     price: 260,
     stock: 156,
@@ -242,7 +242,7 @@ const data: IProduct[] = [
   {
     id: 16,
     name: 'Joma Super Regate',
-    brand: Brand.Joma,
+    brand: Brand.joma,
     category: Category.boots,
     price: 361,
     stock: 16,
@@ -256,7 +256,7 @@ const data: IProduct[] = [
   {
     id: 17,
     name: 'Кроссовки Puma RS-X Tracks MTV GDT Gloome',
-    brand: Brand.Puma,
+    brand: Brand.puma,
     category: Category.running,
     price: 340,
     stock: 16,
@@ -270,7 +270,7 @@ const data: IProduct[] = [
   {
     id: 18,
     name: 'REEBOK FLASHFILM',
-    brand: Brand.Reebok,
+    brand: Brand.reebok,
     category: Category.running,
     price: 268,
     stock: 16,

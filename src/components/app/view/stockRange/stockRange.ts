@@ -13,20 +13,20 @@ class StockRange extends BaseComponent {
   }
 
   private renderView(parentNode: HTMLElement):void {
+    const min: IProduct = data.reduce((prev, current) => (prev.stock > current.stock ? current : prev));
+    const minValue = min.stock;
+    const max: IProduct = data.reduce((prev, current) => (prev.stock > current.stock ? prev : current));
+    const maxValue = max.stock;
     this.element.innerHTML = `
     <h3 class="stock__title">На складе</h3>
     <div class="stock-slider-container">
-        <output class="slider-output start-stock">100</output>
+        <output class="slider-output start-stock">${minValue}</output>
         <div id="stock-slider"></div>
-        <output class="slider-output end-stock">500</output>
+        <output class="slider-output end-stock">${maxValue}</output>
     </div>
     `;
     parentNode.append(this.element);
     const targetElement = <target> this.element.querySelector('#stock-slider');
-    const min: IProduct = data.reduce((prev, current) => (prev > current ? current : prev));
-    const minValue = min.stock;
-    const max: IProduct = data.reduce((prev, current) => (prev > current ? prev : current));
-    const maxValue = max.stock;
     const slider = new Slider();
     slider.createSlider(targetElement, minValue, maxValue);
   }
