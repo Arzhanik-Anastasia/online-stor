@@ -53,10 +53,10 @@ export class HomePageController {
       (item) => (this.filters.category.indexOf(item.category) !== -1
         && this.filters.colors.indexOf(item.color) !== -1
         && this.filters.brands.indexOf(item.brand) !== -1
-        /*&& item.stock >= minStock
-        && item.count <= maxStock
-        && item.price >= minPrice
-        && item.price <= maxPrice */
+        && item.price >= this.filters.minPrice
+        && item.price <= this.filters.maxPrice
+        && item.stock >= this.filters.minStock
+        && item.stock <= this.filters.maxStock
       ),
     );
     this.sortCards();

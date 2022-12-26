@@ -47,6 +47,8 @@ class HomePage extends BaseComponent {
     this.homePageListener.addListenerCategory();
     this.homePageListener.addListenerColors();
     this.homePageListener.addListenerBrand();
+    this.homePageListener.addListenerPrice();
+    this.homePageListener.addListenerStock();
   }
 }
 

@@ -20,9 +20,9 @@ class StockRange extends BaseComponent {
     this.element.innerHTML = `
     <h3 class="stock__title">На складе</h3>
     <div class="stock-slider-container">
-        <output class="slider-output start-stock">${minValue}</output>
+        <output class="slider-output stock-min">${minValue}</output>
         <div id="stock-slider"></div>
-        <output class="slider-output end-stock">${maxValue}</output>
+        <output class="slider-output stock-max">${maxValue}</output>
     </div>
     `;
     parentNode.append(this.element);

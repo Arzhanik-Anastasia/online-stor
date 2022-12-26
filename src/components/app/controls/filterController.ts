@@ -36,4 +36,16 @@ export class FilterController {
     this.filters.brands = brands;
     localStorage.setItem('store-filter', JSON.stringify(this.filters));
   }
+
+  public changeSliderPrice(min:number, max: number): void {
+    this.filters.minPrice = min;
+    this.filters.maxPrice = max;
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
+
+  public changeSliderStock(min:number, max: number): void {
+    this.filters.minStock = min;
+    this.filters.maxStock = max;
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
 }
