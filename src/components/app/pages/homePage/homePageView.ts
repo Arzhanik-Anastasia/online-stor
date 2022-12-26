@@ -45,6 +45,8 @@ class HomePage extends BaseComponent {
     this.homePageController.renderList();
     this.homePageListener.addListenerToSortSelect();
     this.homePageListener.addListenerCategory();
+    this.homePageListener.addListenerColors();
+    this.homePageListener.addListenerBrand();
   }
 }
 

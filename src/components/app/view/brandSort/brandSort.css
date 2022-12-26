@@ -8,6 +8,15 @@
   font-size: 16px;
 }
 
+label {
+  display: flex;
+}
+
 .checkbox__title {
   margin-left: 5px;
+  display: block;
+}
+
+.checkbox__title::first-letter {
+  text-transform: uppercase;
 }

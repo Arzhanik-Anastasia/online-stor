@@ -26,4 +26,14 @@ export class FilterController {
     this.filters.category = category;
     localStorage.setItem('store-filter', JSON.stringify(this.filters));
   }
+
+  public changeFilterColor(colors: string[]): void {
+    this.filters.colors = colors;
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
+
+  public changeFilterBrands(brands: string[]): void {
+    this.filters.brands = brands;
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
 }

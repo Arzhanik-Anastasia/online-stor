@@ -51,9 +51,9 @@ export class HomePageController {
     this.filters = this.filterController.getFilter();
     this.filteredProduct = this.allProduct.filter(
       (item) => (this.filters.category.indexOf(item.category) !== -1
-      /*   && this.filters.colors.indexOf(item.color) !== -1
-        && this.filters.brands.indexOf(item.size) !== -1
-        && item.stock >= minStock
+        && this.filters.colors.indexOf(item.color) !== -1
+        && this.filters.brands.indexOf(item.brand) !== -1
+        /*&& item.stock >= minStock
         && item.count <= maxStock
         && item.price >= minPrice
         && item.price <= maxPrice */
