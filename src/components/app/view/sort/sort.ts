@@ -2,7 +2,7 @@ import { BaseComponent } from '../../../common/baseComponent';
 import './sort.css';
 
 export class Sort extends BaseComponent {
-  loadSort: string;
+  private loadSort: string;
 
   constructor(sort: string) {
     super('div', 'sort', '');
@@ -24,7 +24,7 @@ export class Sort extends BaseComponent {
     `;
   }
 
-  loadingValue():void {
+  private loadingValue():void {
     (this.element.querySelector('select') as HTMLSelectElement).value = this.loadSort;
   }
 }

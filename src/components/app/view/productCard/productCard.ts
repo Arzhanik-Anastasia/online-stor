@@ -7,7 +7,7 @@ export class ProductCard extends BaseComponent {
     super('div', 'product__item');
   }
 
-  createProductContainer(model: IProduct): HTMLElement {
+  public createProductContainer(model: IProduct): HTMLElement {
     this.element.innerHTML = `
       <a class="product__item-link" href='/#product?id=${model.id}'>
         <div class="product__image-block">
