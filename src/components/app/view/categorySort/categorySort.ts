@@ -13,7 +13,7 @@ class CategorySort extends BaseComponent {
     const categoriesList = new BaseComponent('div', 'categories__list', '');
     categories.forEach((categorie) => {
       const categoryItem = new BaseComponent('button', 'category__item', categorie);
-      categoryItem.element.setAttribute('category', categorie);
+      categoryItem.element.setAttribute('data-category', categorie);
       categoriesList.element.append(categoryItem.element);
     });
     this.element.append(categoriesList.element);

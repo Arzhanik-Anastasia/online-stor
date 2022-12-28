@@ -12,3 +12,14 @@ export interface IProduct {
   dopImg: number[],
   description: string,
 }
+
+export interface IFilters {
+  brands: string [],
+  colors: string [],
+  category:string [],
+  minStock: number,
+  maxStock: number,
+  minPrice: number,
+  maxPrice: number,
+  sort: string,
+}

@@ -14,7 +14,7 @@ class ColorSort extends BaseComponent {
             <button class="colors-item black" data-color="черный"></button>
             <button class="colors-item red" data-color="красный"></button>
             <button class="colors-item blue" data-color="синий"></button>
-            <button class="colors-item green" data-color="зелёный"></button>
+            <button class="colors-item green" data-color="зеленый"></button>
         `;
     parentNode.append(this.element);
   }
