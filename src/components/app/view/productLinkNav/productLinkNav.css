@@ -16,3 +16,8 @@
 .product__item {
     list-style: none;
 }
+
+.main__link {
+    text-decoration: none;
+    color: black;
+}

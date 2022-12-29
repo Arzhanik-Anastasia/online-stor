@@ -20,7 +20,9 @@ export class ProductLinkNav extends BaseComponent {
   private renderBlock(): void {
     this.element.innerHTML = `
             <ul class="product__ul">
-                <li class="product__item store__category">SNEAKER STORE</li>
+                <li class="product__item store__category">
+                    <a href="/#" class="main__link"> SNEAKER STORE </a>
+                </li>
                 <div>>></div>
                 <li class="product__item store__category">${this.product.brand.toUpperCase()}</li>
                 <div>>></div>
