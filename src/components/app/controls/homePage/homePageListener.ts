@@ -1,5 +1,5 @@
 import { target } from 'nouislider';
-import { DEFAULT_FILTERS } from '../../../data';
+import { DEFAULT_FILTERS } from '../../../../data';
 import { FilterController } from './filterController';
 import { HomePageController } from './homePageController';
 

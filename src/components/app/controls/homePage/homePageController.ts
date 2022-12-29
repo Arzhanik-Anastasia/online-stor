@@ -1,7 +1,7 @@
-import { IFilters, IProduct } from '../../../types';
-import { ProductCard } from '../view/productCard/productCard';
+import { IFilters, IProduct } from '../../../../types';
+import { ProductCard } from '../../view/productCard/productCard';
 import { FilterController } from './filterController';
-import data from '../../../data';
+import data from '../../../../data';
 
 export class HomePageController {
   filterController: FilterController;

@@ -1,0 +1,18 @@
+.product__card {
+    display: flex;
+}
+
+.product__nav {
+    margin: 20px;
+}
+
+.product__ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.product__item {
+    list-style: none;
+}
