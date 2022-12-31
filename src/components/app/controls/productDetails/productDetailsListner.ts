@@ -9,6 +9,7 @@ export class ProductDetailsListener {
 
   public initListener():void {
     this.addListenerToSlider();
+    this.addListenerToToChartBtn();
   }
 
   private addListenerToSlider(): void {
@@ -26,6 +27,16 @@ export class ProductDetailsListener {
         const currentImgSrc = currentImg.firstElementChild?.getAttribute('src') as string;
         this.productDetailsController.renderImg(currentImgSrc);
       });
+    });
+  }
+
+  private addListenerToToChartBtn(): void {
+    const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
+    toChartBtn.addEventListener('click', () => {
+      const path = window.location.hash;
+      const idProduct:number = +path.split('=')[1];
+      this.productDetailsController.addToCart(idProduct);
+      this.productDetailsController.changeHeaderInfo();
     });
   }
 }

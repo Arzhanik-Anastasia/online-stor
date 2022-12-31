@@ -24,6 +24,8 @@ export class ProductLinkNav extends BaseComponent {
                     <a href="/#" class="main__link"> SNEAKER STORE </a>
                 </li>
                 <div>>></div>
+                <li class="product__item store__category">${this.product.category.toUpperCase()}</li>
+                <div>>></div>
                 <li class="product__item store__category">${this.product.brand.toUpperCase()}</li>
                 <div>>></div>
                 <li class="product__item store__category">${this.product.name}</li>

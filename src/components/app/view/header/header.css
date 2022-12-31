@@ -23,7 +23,8 @@
     color: black;
 }
 
-.header__cart {
+.header__cart,
+.header__total-price {
     display: flex;
     text-decoration: none;
     color: black;

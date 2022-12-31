@@ -13,9 +13,10 @@ class Header extends BaseComponent {
         <div class="header__logo">
           <a href="/#" class="header__link"> SNEAKER HEAD </a>
         </div>
+        <div class="header__total-price">Cart total: 0</div>
         <a class="header__cart" href="/#cart">
           <div class="cart__img"></div>
-          <div class="header__count">20</div>
+          <div class="header__count"></div>
         </a>
 
     </div>`;
