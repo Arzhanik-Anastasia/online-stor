@@ -23,7 +23,7 @@ export class ProductDetailsController {
     console.log(this.allProducts);
   }
 
-  private changeAddBtnText(id: number): void {
+  public changeAddBtnText(id: number): void {
     const addToCartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     let btnText = 'Добавить в корзину' as string;
     if (findProduct(id, this.productsInCart)) {
@@ -38,8 +38,9 @@ export class ProductDetailsController {
       this.productsInCart.push(findProduct(id, this.allProducts));
     } else if (flag === 'byCart') {
       this.productsInCart = this.productsInCart.filter((el) => el.id !== id);
+    } else if (flag === 'inc') {
+      this.productsInCart.push(findProduct(id, this.allProducts));
     }
-    this.changeAddBtnText(id);
     setProductsInCart(this.productsInCart);
   }
 

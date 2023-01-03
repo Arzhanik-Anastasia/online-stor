@@ -25,3 +25,7 @@ export function getIdFromUrl(): number {
   const idProduct:number = +path.split('=')[1];
   return idProduct;
 }
+
+export function getEachProductCount(data: IProduct[] | [], id: number): number {
+  return data.filter((el: IProduct) => el.id === id).length;
+}
