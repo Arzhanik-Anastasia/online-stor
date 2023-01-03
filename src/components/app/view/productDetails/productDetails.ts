@@ -2,14 +2,17 @@ import data from '../../../../data';
 import { IProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
 import './productDetails.css';
-import { findProduct } from '../../controls/services/services';
+import { findProduct, getProductsInCart } from '../../controls/services/services';
 
 export class ProductDetails extends BaseComponent {
   private product: IProduct;
 
+  private productsInCart: IProduct[] | [];
+
   constructor(id: number) {
     super('div', 'product__details');
     this.product = findProduct(id, data);
+    this.productsInCart = getProductsInCart();
     this.renderProductDetails();
   }
 
@@ -29,7 +32,9 @@ export class ProductDetails extends BaseComponent {
             </div>
         </div>
 
-        <button class='product__to-chart' data-product=${this.product.id}>Добавить в корзину</button>
+        <button class='product__to-chart' data-product=${this.product.id}>
+        ${findProduct(this.product.id, this.productsInCart) ? 'Удалить из корзины' : 'Добавить в корзину'}
+        </button>
         <button class='product__buy' data-product=${this.product.id}>Купить сейчас</button>
         `;
   }

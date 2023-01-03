@@ -9,7 +9,7 @@ export class ProductDetailsListener {
 
   public initListener():void {
     this.addListenerToSlider();
-    this.addListenerToToChartBtn();
+    this.addListenerAddToChartBtn();
   }
 
   private addListenerToSlider(): void {
@@ -30,7 +30,7 @@ export class ProductDetailsListener {
     });
   }
 
-  private addListenerToToChartBtn(): void {
+  private addListenerAddToChartBtn(): void {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
       const path: string = window.location.hash;
