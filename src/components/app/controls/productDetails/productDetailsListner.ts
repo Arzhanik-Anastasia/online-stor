@@ -1,4 +1,5 @@
 import { ProductDetailsController } from './productDetailsController';
+import { getIdFromUrl } from '../services/services';
 
 export class ProductDetailsListener {
   private productDetailsController: ProductDetailsController;
@@ -10,6 +11,7 @@ export class ProductDetailsListener {
   public initListener():void {
     this.addListenerToSlider();
     this.addListenerAddToChartBtn();
+    this.addListenerBuyNowBtn();
   }
 
   private addListenerToSlider(): void {
@@ -33,9 +35,15 @@ export class ProductDetailsListener {
   private addListenerAddToChartBtn(): void {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      const path: string = window.location.hash;
-      const idProduct:number = +path.split('=')[1];
-      this.productDetailsController.addToCart(idProduct);
+      this.productDetailsController.addToCart(getIdFromUrl(), 'byCart');
+      this.productDetailsController.changeHeaderInfo();
+    });
+  }
+
+  private addListenerBuyNowBtn(): void {
+    const toChartBtn = document.querySelector('.product__buy') as HTMLButtonElement;
+    toChartBtn.addEventListener('click', () => {
+      this.productDetailsController.addToCart(getIdFromUrl(), 'now');
       this.productDetailsController.changeHeaderInfo();
     });
   }

@@ -32,12 +32,12 @@ export class ProductDetailsController {
     addToCartBtn.innerText = btnText;
   }
 
-  public addToCart(id: number): void {
+  public addToCart(id: number, flag: string): void {
     this.productsInCart = getProductsInCart();
-    if (findProduct(id, this.productsInCart)) {
-      this.productsInCart = this.productsInCart.filter((el) => el.id !== id);
-    } else {
+    if (!findProduct(id, this.productsInCart)) {
       this.productsInCart.push(findProduct(id, this.allProducts));
+    } else if (flag === 'byCart') {
+      this.productsInCart = this.productsInCart.filter((el) => el.id !== id);
     }
     this.changeAddBtnText(id);
     setProductsInCart(this.productsInCart);

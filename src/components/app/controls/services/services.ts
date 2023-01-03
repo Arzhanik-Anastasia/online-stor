@@ -19,3 +19,9 @@ export function getProductsInCart():IProduct[] | [] {
 export function setProductsInCart(product: IProduct[]): void {
   localStorage.setItem('cart-products', JSON.stringify(product));
 }
+
+export function getIdFromUrl(): number {
+  const path: string = window.location.hash;
+  const idProduct:number = +path.split('=')[1];
+  return idProduct;
+}

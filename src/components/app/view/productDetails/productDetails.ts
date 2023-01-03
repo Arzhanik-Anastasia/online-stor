@@ -35,7 +35,9 @@ export class ProductDetails extends BaseComponent {
         <button class='product__to-chart' data-product=${this.product.id}>
         ${findProduct(this.product.id, this.productsInCart) ? 'Удалить из корзины' : 'Добавить в корзину'}
         </button>
+        <a href='/#cart'>
         <button class='product__buy' data-product=${this.product.id}>Купить сейчас</button>
+        </a>
         `;
   }
 }
