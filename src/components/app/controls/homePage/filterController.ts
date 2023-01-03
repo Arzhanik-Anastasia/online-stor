@@ -1,5 +1,5 @@
-import { DEFAULT_FILTERS } from '../../../data';
-import { IFilters } from '../../../types';
+import { DEFAULT_FILTERS } from '../../../../data';
+import { IFilters } from '../../../../types';
 
 export class FilterController {
   filters: IFilters;

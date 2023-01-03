@@ -1,9 +1,9 @@
 import { DEFAULT_FILTERS } from '../../../../data';
 import { IFilters } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
-import { FilterController } from '../../controls/filterController';
-import { HomePageController } from '../../controls/homePageController';
-import { HomePageListener } from '../../controls/homePageListener';
+import { FilterController } from '../../controls/homePage/filterController';
+import { HomePageController } from '../../controls/homePage/homePageController';
+import { HomePageListener } from '../../controls/homePage/homePageListener';
 import { Aside } from '../../view/aside/aside';
 import { ProductList } from '../../view/productList/ProductList';
 import { Sort } from '../../view/sort/sort';

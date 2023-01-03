@@ -35,7 +35,8 @@
     flex-grow: 1;
 }
 
-.product__buy {
+.product__buy,
+.product__to-chart {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
