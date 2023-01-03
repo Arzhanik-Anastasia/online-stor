@@ -14,10 +14,10 @@ export class ProductSlider extends BaseComponent {
                     <img class="slider__img" src='./assets/img/id${id}/1.jpg' alt=productPhoto1>
                 </div>
                 <div class="slider__item">
-                    <img class="slider__img" src='./assets/img/id${id}/2.jpg' alt=productPhoto1>
+                    <img class="slider__img" src='./assets/img/id${id}/2.jpg' alt=productPhoto2>
                 </div>
                 <div class="slider__item">
-                    <img class="slider__img" src='./assets/img/id${id}/3.jpg' alt=productPhoto1>
+                    <img class="slider__img" src='./assets/img/id${id}/3.jpg' alt=productPhoto3>
                 </div>
             </div>
         `;

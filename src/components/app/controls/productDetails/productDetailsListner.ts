@@ -1,7 +1,7 @@
 import { ProductDetailsController } from './productDetailsController';
 
 export class ProductDetailsListener {
-  productDetailsController: ProductDetailsController;
+  private productDetailsController: ProductDetailsController;
 
   constructor() {
     this.productDetailsController = new ProductDetailsController();
@@ -13,19 +13,19 @@ export class ProductDetailsListener {
   }
 
   private addListenerToSlider(): void {
-    const productSliderItems = Array.from(document.querySelectorAll('.slider__item')) as HTMLDivElement[];
+    const productSliderItems = document.querySelectorAll('.slider__item') as NodeListOf<Element>;
     productSliderItems.forEach((item) => {
       item.addEventListener('click', (e: Event) => {
-        if ((e.currentTarget as HTMLDivElement).classList.contains('slider__item')) {
+        const slide = e.currentTarget as HTMLDivElement;
+        if (slide.classList.contains('slider__item')) {
           const allImg = Array.from(document.querySelectorAll('.slider__item')) as HTMLDivElement[];
           allImg.forEach((el) => {
             el.classList.remove('active');
           });
-          (e.currentTarget as HTMLDivElement).classList.add('active');
+          slide.classList.add('active');
         }
-        const currentImg = e.currentTarget as HTMLDivElement;
-        const currentImgSrc = currentImg.firstElementChild?.getAttribute('src') as string;
-        this.productDetailsController.renderImg(currentImgSrc);
+        const currentImgSrc = slide.firstElementChild?.getAttribute('src') as string;
+        this.productDetailsController.changeSrcOfMainImg(currentImgSrc);
       });
     });
   }
@@ -33,7 +33,7 @@ export class ProductDetailsListener {
   private addListenerToToChartBtn(): void {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      const path = window.location.hash;
+      const path: string = window.location.hash;
       const idProduct:number = +path.split('=')[1];
       this.productDetailsController.addToCart(idProduct);
       this.productDetailsController.changeHeaderInfo();

@@ -2,19 +2,15 @@ import data from '../../../../data';
 import { BaseComponent } from '../../../common/baseComponent';
 import { IProduct } from '../../../../types';
 import './productLinkNav.css';
+import { findProduct } from '../../controls/services/services';
 
 export class ProductLinkNav extends BaseComponent {
-  product: IProduct;
+  private product: IProduct;
 
   constructor(id: number) {
     super('div', 'product__nav');
-    this.product = data[id];
-    this.findProduct(id);
+    this.product = findProduct(id, data);
     this.renderBlock();
-  }
-
-  private findProduct(id: number): void {
-    this.product = data.find((el: IProduct) => el.id === id) as IProduct;
   }
 
   private renderBlock(): void {

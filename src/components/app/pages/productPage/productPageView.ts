@@ -27,10 +27,10 @@ class ProductPage extends BaseComponent {
   }
 
   public renderPage(): void {
-    const wrapper = document.createElement('div');
+    const wrapper = document.createElement('div') as HTMLDivElement;
     wrapper.classList.add('wrapper__product-details');
     wrapper.append(this.productLinkNav.element);
-    const productCard = document.createElement('div');
+    const productCard = document.createElement('div') as HTMLDivElement;
     productCard.classList.add('product__card');
     wrapper.append(productCard);
     productCard.append(this.productDetails.element);

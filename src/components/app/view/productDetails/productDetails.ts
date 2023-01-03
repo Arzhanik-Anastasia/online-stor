@@ -2,19 +2,15 @@ import data from '../../../../data';
 import { IProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
 import './productDetails.css';
+import { findProduct } from '../../controls/services/services';
 
 export class ProductDetails extends BaseComponent {
-  product: IProduct;
+  private product: IProduct;
 
   constructor(id: number) {
     super('div', 'product__details');
-    this.product = data[id];
-    this.findProduct(id);
+    this.product = findProduct(id, data);
     this.renderProductDetails();
-  }
-
-  private findProduct(id: number): void {
-    this.product = data.find((el: IProduct) => el.id === id) as IProduct;
   }
 
   private renderProductDetails(): void {
