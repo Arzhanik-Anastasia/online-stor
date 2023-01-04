@@ -26,7 +26,7 @@ export class HomePageListener {
     this.addListenerPrice();
     this.addListenerStock();
     this.addListenerReset();
-    this.addListenerAddToChartBtn();
+    // this.addListenerAddToChartBtn();
   }
 
   private addListenerToSortSelect(): void {
@@ -34,6 +34,7 @@ export class HomePageListener {
     sortSelect.addEventListener('change', () => {
       this.filtersController.changeFilterSort(sortSelect.value);
       this.homePageController.sortCards();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -55,6 +56,7 @@ export class HomePageListener {
       this.filtersController.changeFilterCategory(categoryArr);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -76,6 +78,7 @@ export class HomePageListener {
       this.filtersController.changeFilterColor(colorsArr);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -93,6 +96,7 @@ export class HomePageListener {
       this.filtersController.changeFilterBrands(brandsArr);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -109,6 +113,7 @@ export class HomePageListener {
       this.filtersController.changeSliderPrice(+minPrice, +maxPrice);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -125,6 +130,7 @@ export class HomePageListener {
       this.filtersController.changeSliderStock(+minStock, +maxStock);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -144,6 +150,7 @@ export class HomePageListener {
       this.filtersController.resetFilter();
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
