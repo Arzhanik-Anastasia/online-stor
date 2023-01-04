@@ -1,10 +1,10 @@
-import { IProduct } from '../../../../types';
+import { ICartProduct, IProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
-import { findProduct, getProductsInCart } from '../../controls/services/services';
+import { getProductsInCart } from '../../controls/services/services';
 import './productCard.css';
 
 export class ProductCard extends BaseComponent {
-  private productsInCart: IProduct[] | [];
+  private productsInCart: ICartProduct;
 
   constructor() {
     super('div', 'product__item');
@@ -27,7 +27,7 @@ export class ProductCard extends BaseComponent {
         </div>
         </a>
         <button class='product__buy' data-product=${model.id}>
-        ${findProduct(model.id, this.productsInCart) ? 'Удалить из корзины' : 'Добавить в корзину'}
+        ${this.productsInCart[model.id] ? 'Удалить из корзины' : 'Добавить в корзину'}
         </button>
       `;
     return this.element;

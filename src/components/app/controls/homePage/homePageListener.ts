@@ -1,6 +1,7 @@
 import { target } from 'nouislider';
 import { DEFAULT_FILTERS } from '../../../../data';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
+import { getProductsInCart, setProductsInCart } from '../services/services';
 import { FilterController } from './filterController';
 import { HomePageController } from './homePageController';
 
@@ -151,9 +152,15 @@ export class HomePageListener {
     toChartBtn.forEach((btn) => {
       const id = Number(btn.getAttribute('data-product')) as number;
       btn.addEventListener('click', () => {
-        this.productDetailsController.addToCart(id, 'byCart');
-        this.productDetailsController.changeAddBtnText(id, '.product__buy');
+        const productsInCart = getProductsInCart();
+        if (!productsInCart[id]) {
+          this.productDetailsController.addToCart(id/* , 'byCart' */);
+        } else {
+          delete productsInCart[id];
+          setProductsInCart(productsInCart);
+        }
         this.productDetailsController.changeHeaderInfo();
+        this.productDetailsController.changeAddBtnText(id, '.product__buy');
       });
     });
   }

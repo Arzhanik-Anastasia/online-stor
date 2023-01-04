@@ -1,5 +1,5 @@
 import { BaseComponent } from '../../../common/baseComponent';
-import { calcTotalPrice, getProductsInCart } from '../../controls/services/services';
+import { calcTotalCount, calcTotalPrice, getProductsInCart } from '../../controls/services/services';
 import './cartSummary.css';
 
 export class CartSummary extends BaseComponent {
@@ -11,8 +11,8 @@ export class CartSummary extends BaseComponent {
   private renderBlock(): void {
     this.element.innerHTML = `
             <h2>Детали заказа</h2>
-            <div class="total__count">Общее количество: ${getProductsInCart().length}</div>
-            <div class="total__price">Общая стоимость: ${calcTotalPrice(getProductsInCart(), 'price')}</div>
+            <div class="total__count">Общее количество: ${calcTotalCount(getProductsInCart())}</div>
+            <div class="total__price">Общая стоимость: ${calcTotalPrice(getProductsInCart())}</div>
             <div class="promo-code">Промокод</div>
             <button class="cart__summary-btn">К оплате</button>
         `;

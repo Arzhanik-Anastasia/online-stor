@@ -1,6 +1,6 @@
 import { IProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
-import { getEachProductCount, getProductsInCart } from '../../controls/services/services';
+import { getProductsInCart } from '../../controls/services/services';
 import './productInCartItem.css';
 
 export class ProductInCartItem extends BaseComponent {
@@ -26,7 +26,7 @@ export class ProductInCartItem extends BaseComponent {
           <div class="incDec__control">
             <button class="dec__control-btn" data-product=${model.id}>-</button>
             <div class="productInCart__count-in-cart" data-product=${model.id}>
-              ${getEachProductCount(getProductsInCart(), model.id)}
+              ${getProductsInCart()[model.id]}
             </div>
             <button class="inc__control-btn" data-product=${model.id}>+</button>
           </div>

@@ -23,3 +23,7 @@ export interface IFilters {
   maxPrice: number,
   sort: string,
 }
+
+export interface ICartProduct {
+  [id: number]: number
+}
