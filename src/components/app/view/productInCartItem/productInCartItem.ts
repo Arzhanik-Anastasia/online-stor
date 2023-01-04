@@ -25,12 +25,15 @@ export class ProductInCartItem extends BaseComponent {
           <p class="productInCart__count">На складе: <span>${model.stock}</span></p>
           <div class="incDec__control">
             <button class="dec__control-btn" data-product=${model.id}>-</button>
-            <div class="productInCart__count-in-cart">${getEachProductCount(getProductsInCart(), model.id)}</div>
+            <div class="productInCart__count-in-cart" data-product=${model.id}>
+              ${getEachProductCount(getProductsInCart(), model.id)}
+            </div>
             <button class="inc__control-btn" data-product=${model.id}>+</button>
           </div>
           <p class="productInCart__price">ЦЕНА: ${model.price}</p>
         </div>
       `;
+    this.element.setAttribute('data-product', String(model.id));
     return this.element;
   }
 }

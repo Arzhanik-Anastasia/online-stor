@@ -36,7 +36,7 @@ export class ProductDetailsListener {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
       this.productDetailsController.addToCart(getIdFromUrl(), 'byCart');
-      this.productDetailsController.changeAddBtnText(getIdFromUrl());
+      this.productDetailsController.changeAddBtnText(getIdFromUrl(), '.product__to-chart');
       this.productDetailsController.changeHeaderInfo();
     });
   }
@@ -45,7 +45,7 @@ export class ProductDetailsListener {
     const toChartBtn = document.querySelector('.product__buy') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
       this.productDetailsController.addToCart(getIdFromUrl(), 'now');
-      this.productDetailsController.changeAddBtnText(getIdFromUrl());
+      this.productDetailsController.changeAddBtnText(getIdFromUrl(), '.product__to-chart');
       this.productDetailsController.changeHeaderInfo();
     });
   }

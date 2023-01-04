@@ -29,3 +29,9 @@ export function getIdFromUrl(): number {
 export function getEachProductCount(data: IProduct[] | [], id: number): number {
   return data.filter((el: IProduct) => el.id === id).length;
 }
+
+export function uniqCartArr(products: IProduct[]): IProduct[] {
+  return products.filter((item: IProduct, index: number, array: IProduct[]) => array
+    .map((mapItem: IProduct) => mapItem.id)
+    .indexOf(item.id) === index);
+}

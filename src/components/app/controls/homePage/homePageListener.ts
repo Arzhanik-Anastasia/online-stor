@@ -1,5 +1,6 @@
 import { target } from 'nouislider';
 import { DEFAULT_FILTERS } from '../../../../data';
+import { ProductDetailsController } from '../productDetails/productDetailsController';
 import { FilterController } from './filterController';
 import { HomePageController } from './homePageController';
 
@@ -8,9 +9,12 @@ export class HomePageListener {
 
   homePageController: HomePageController;
 
+  productDetailsController: ProductDetailsController;
+
   constructor() {
     this.filtersController = new FilterController();
     this.homePageController = new HomePageController();
+    this.productDetailsController = new ProductDetailsController();
   }
 
   public initListener():void {
@@ -21,6 +25,7 @@ export class HomePageListener {
     this.addListenerPrice();
     this.addListenerStock();
     this.addListenerReset();
+    this.addListenerAddToChartBtn();
   }
 
   private addListenerToSortSelect(): void {
@@ -138,6 +143,18 @@ export class HomePageListener {
       this.filtersController.resetFilter();
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+    });
+  }
+
+  private addListenerAddToChartBtn(): void {
+    const toChartBtn = document.querySelectorAll('.product__buy') as NodeListOf<Element>;
+    toChartBtn.forEach((btn) => {
+      const id = Number(btn.getAttribute('data-product')) as number;
+      btn.addEventListener('click', () => {
+        this.productDetailsController.addToCart(id, 'byCart');
+        this.productDetailsController.changeAddBtnText(id, '.product__buy');
+        this.productDetailsController.changeHeaderInfo();
+      });
     });
   }
 }

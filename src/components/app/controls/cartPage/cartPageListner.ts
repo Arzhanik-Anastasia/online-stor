@@ -29,7 +29,7 @@ export class CartPageListener {
       btn.addEventListener('click', (e: Event) => {
         const currentBtn = e.currentTarget as HTMLDivElement;
         const productId = Number(currentBtn.getAttribute('data-product')) as number;
-        this.cartPageController.incProductCount(productId);
+        this.cartPageController.decProductCount(productId);
       });
     });
   }
