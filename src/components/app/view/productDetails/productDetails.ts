@@ -26,7 +26,7 @@ export class ProductDetails extends BaseComponent {
                 <p class="product__desctiption">Описание: <span>${this.product.description}</span></p>
                 <p class="product__price">ЦЕНА: ${this.product.price}</p>
             </div>
-            <div class="product__image-block">
+            <div class="product__image-bl">
                 <img class="product__image" src='./assets/img/id${this.product.id}/1.jpg' alt=${this.product.name}>
             </div>
         </div>

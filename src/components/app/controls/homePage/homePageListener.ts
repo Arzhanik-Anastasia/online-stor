@@ -27,6 +27,7 @@ export class HomePageListener {
     this.addListenerPrice();
     this.addListenerStock();
     this.addListenerReset();
+    this.addListenerChangeLayoutBtn();
     // this.addListenerAddToChartBtn();
   }
 
@@ -152,6 +153,18 @@ export class HomePageListener {
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
       this.addListenerAddToChartBtn();
+    });
+  }
+
+  private addListenerChangeLayoutBtn(): void {
+    const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
+    layoutBtns.forEach((btn) => {
+      btn.addEventListener('click', (e: Event) => {
+        layoutBtns.forEach((btnEl) => { btnEl.classList.remove('active'); });
+        (e.target as HTMLButtonElement).classList.add('active');
+        const layout = (e.target as HTMLButtonElement).getAttribute('data-display') as string;
+        this.filtersController.changeLayout(layout);
+      });
     });
   }
 
