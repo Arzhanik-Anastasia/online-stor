@@ -1,53 +1,61 @@
-import { IProduct } from '../../../../types';
-import data from '../../../../data';
+import { ICartProduct } from '../../../../types';
 import {
-  findProduct,
   calcTotalPrice,
   setProductsInCart,
   getProductsInCart,
 } from '../services/services';
 
 export class ProductDetailsController {
-  private allProducts: IProduct[] | [];
-
-  private productsInCart: IProduct[];
+  private productsInCart: ICartProduct;
 
   constructor() {
-    this.allProducts = data;
     this.productsInCart = getProductsInCart();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public changeSrcOfMainImg(currentImg: string): void {
     const productImgBlockNode = document.querySelector('.product__image') as HTMLElement;
     productImgBlockNode.setAttribute('src', currentImg);
-    console.log(this.allProducts);
   }
 
-  private changeAddBtnText(id: number): void {
-    const addToCartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
+  public changeAddBtnText(id: number, selector: string): void {
+    this.productsInCart = getProductsInCart();
+    const addToCartBtn = document.querySelectorAll(selector) as NodeListOf<Element>;
     let btnText = 'Добавить в корзину' as string;
-    if (findProduct(id, this.productsInCart)) {
+    if (this.productsInCart[id]) {
       btnText = 'Удалить из корзины';
     }
-    addToCartBtn.innerText = btnText;
+    addToCartBtn.forEach((btn) => {
+      if (Number(btn.getAttribute('data-product')) === id) {
+        btn.innerHTML = btnText;
+      }
+    });
   }
 
-  public addToCart(id: number, flag: string): void {
+  public addToCart(id: number): void {
     this.productsInCart = getProductsInCart();
-    if (!findProduct(id, this.productsInCart)) {
-      this.productsInCart.push(findProduct(id, this.allProducts));
-    } else if (flag === 'byCart') {
-      this.productsInCart = this.productsInCart.filter((el) => el.id !== id);
+    if (!this.productsInCart[id]) {
+      this.productsInCart[id] = 1;
+    } else {
+      this.productsInCart[id] = this.productsInCart[`${id}`] + 1;
     }
-    this.changeAddBtnText(id);
+    setProductsInCart(this.productsInCart);
+  }
+
+  public removeFromCart(id: number): void {
+    this.productsInCart[id] = this.productsInCart[`${id}`] - 1;
+    if (this.productsInCart[id] === 0) {
+      delete this.productsInCart[id];
+    }
     setProductsInCart(this.productsInCart);
   }
 
   public changeHeaderInfo(): void {
+    this.productsInCart = getProductsInCart();
     const headerCart = document.querySelector('.header__count') as HTMLElement;
-    const counter = this.productsInCart.length;
+    const counter = Object.values(this.productsInCart).reduce((acc, curr) => acc + curr, 0);
     const headerTotalPrice = document.querySelector('.header__total-price') as HTMLDivElement;
-    const totalPrice: number = calcTotalPrice(this.productsInCart, 'price');
+    const totalPrice: number = calcTotalPrice(this.productsInCart);
     headerCart.innerHTML = counter.toString();
     headerTotalPrice.innerHTML = `Cart total: ${totalPrice}`;
   }

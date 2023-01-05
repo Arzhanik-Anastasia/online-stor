@@ -1,5 +1,6 @@
 import { ProductDetailsController } from './productDetailsController';
-import { getIdFromUrl } from '../services/services';
+import { getIdFromUrl, getProductsInCart } from '../services/services';
+import { ICartProduct } from '../../../../types';
 
 export class ProductDetailsListener {
   private productDetailsController: ProductDetailsController;
@@ -35,15 +36,24 @@ export class ProductDetailsListener {
   private addListenerAddToChartBtn(): void {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      this.productDetailsController.addToCart(getIdFromUrl(), 'byCart');
+      const productInCart:ICartProduct = getProductsInCart();
+      const id:number = getIdFromUrl();
+      if (!productInCart[getIdFromUrl()]) {
+        this.productDetailsController.addToCart(id);
+      } else {
+        this.productDetailsController.removeFromCart(id);
+      }
+      this.productDetailsController.changeAddBtnText(id, '.product__to-chart');
       this.productDetailsController.changeHeaderInfo();
     });
   }
 
   private addListenerBuyNowBtn(): void {
+    // открывается модальное окно и переход на страницу с корзиной и этот товар добавить в корзину
     const toChartBtn = document.querySelector('.product__buy') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      this.productDetailsController.addToCart(getIdFromUrl(), 'now');
+      this.productDetailsController.addToCart(getIdFromUrl());
+      this.productDetailsController.changeAddBtnText(getIdFromUrl(), '.product__to-chart');
       this.productDetailsController.changeHeaderInfo();
     });
   }

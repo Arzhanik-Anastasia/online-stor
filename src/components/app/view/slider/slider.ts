@@ -2,9 +2,9 @@
 import noUiSlider, { target } from 'nouislider';
 
 class Slider {
-  public createSlider(targetElement: target, min:number, max:number): void {
+  public createSlider(targetElement: target, min:number, max:number, minValueLoad: number, maxValueLoad: number): void {
     noUiSlider.create(targetElement, {
-      start: [min, max],
+      start: [minValueLoad, maxValueLoad],
       connect: true,
       range: {
         min,

@@ -1,22 +1,28 @@
-import { IProduct } from '../../../../types';
+import data from '../../../../data';
+import { ICartProduct, IProduct } from '../../../../types';
 
-export function findProduct(id: number, data: IProduct[] | []): IProduct {
+export function findProductFromData(id: number):IProduct {
   return data.find((el: IProduct) => el.id === id) as IProduct;
 }
 
-export function calcTotalPrice(productsArr: IProduct[], prop: keyof IProduct): number {
+export function calcTotalPrice(products: ICartProduct): number {
   let totalPrice = 0;
-  productsArr.forEach((el: IProduct) => {
-    totalPrice += +el[prop];
+  Object.keys(products).forEach((key) => {
+    const modelProduct = data.find((el: IProduct) => el.id === +key);
+    totalPrice += products[`${+key}`] * modelProduct!.price;
   });
   return totalPrice;
 }
 
-export function getProductsInCart():IProduct[] | [] {
-  return localStorage.getItem('cart-products') ? JSON.parse(localStorage.getItem('cart-products') as string) : [];
+export function calcTotalCount(products:ICartProduct): number {
+  return Object.values(products).reduce((acc, curr) => acc + curr, 0);
 }
 
-export function setProductsInCart(product: IProduct[]): void {
+export function getProductsInCart():ICartProduct {
+  return JSON.parse(localStorage.getItem('cart-products') as string) ?? {};
+}
+
+export function setProductsInCart(product: ICartProduct): void {
   localStorage.setItem('cart-products', JSON.stringify(product));
 }
 

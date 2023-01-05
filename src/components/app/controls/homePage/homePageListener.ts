@@ -1,5 +1,8 @@
 import { target } from 'nouislider';
 import { DEFAULT_FILTERS } from '../../../../data';
+import { ICartProduct } from '../../../../types';
+import { ProductDetailsController } from '../productDetails/productDetailsController';
+import { getProductsInCart, setProductsInCart } from '../services/services';
 import { FilterController } from './filterController';
 import { HomePageController } from './homePageController';
 
@@ -8,9 +11,12 @@ export class HomePageListener {
 
   homePageController: HomePageController;
 
+  productDetailsController: ProductDetailsController;
+
   constructor() {
     this.filtersController = new FilterController();
     this.homePageController = new HomePageController();
+    this.productDetailsController = new ProductDetailsController();
   }
 
   public initListener():void {
@@ -21,6 +27,7 @@ export class HomePageListener {
     this.addListenerPrice();
     this.addListenerStock();
     this.addListenerReset();
+    // this.addListenerAddToChartBtn();
   }
 
   private addListenerToSortSelect(): void {
@@ -28,6 +35,7 @@ export class HomePageListener {
     sortSelect.addEventListener('change', () => {
       this.filtersController.changeFilterSort(sortSelect.value);
       this.homePageController.sortCards();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -49,6 +57,7 @@ export class HomePageListener {
       this.filtersController.changeFilterCategory(categoryArr);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -70,6 +79,7 @@ export class HomePageListener {
       this.filtersController.changeFilterColor(colorsArr);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -87,6 +97,7 @@ export class HomePageListener {
       this.filtersController.changeFilterBrands(brandsArr);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -103,6 +114,7 @@ export class HomePageListener {
       this.filtersController.changeSliderPrice(+minPrice, +maxPrice);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -119,6 +131,7 @@ export class HomePageListener {
       this.filtersController.changeSliderStock(+minStock, +maxStock);
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
     });
   }
 
@@ -138,6 +151,25 @@ export class HomePageListener {
       this.filtersController.resetFilter();
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
+      this.addListenerAddToChartBtn();
+    });
+  }
+
+  private addListenerAddToChartBtn(): void {
+    const toChartBtn = document.querySelectorAll('.product__buy') as NodeListOf<Element>;
+    toChartBtn.forEach((btn) => {
+      const id = Number(btn.getAttribute('data-product')) as number;
+      btn.addEventListener('click', () => {
+        const productsInCart:ICartProduct = getProductsInCart();
+        if (!productsInCart[id]) {
+          this.productDetailsController.addToCart(id/* , 'byCart' */);
+        } else {
+          delete productsInCart[id];
+          setProductsInCart(productsInCart);
+        }
+        this.productDetailsController.changeHeaderInfo();
+        this.productDetailsController.changeAddBtnText(id, '.product__buy');
+      });
     });
   }
 }

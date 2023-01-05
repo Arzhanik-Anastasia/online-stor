@@ -1,17 +1,16 @@
-import data from '../../../../data';
-import { IProduct } from '../../../../types';
+import { ICartProduct, IProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
 import './productDetails.css';
-import { findProduct, getProductsInCart } from '../../controls/services/services';
+import { findProductFromData, getProductsInCart } from '../../controls/services/services';
 
 export class ProductDetails extends BaseComponent {
   private product: IProduct;
 
-  private productsInCart: IProduct[] | [];
+  private productsInCart: ICartProduct;
 
   constructor(id: number) {
     super('div', 'product__details');
-    this.product = findProduct(id, data);
+    this.product = findProductFromData(id);
     this.productsInCart = getProductsInCart();
     this.renderProductDetails();
   }
@@ -33,7 +32,7 @@ export class ProductDetails extends BaseComponent {
         </div>
 
         <button class='product__to-chart' data-product=${this.product.id}>
-        ${findProduct(this.product.id, this.productsInCart) ? 'Удалить из корзины' : 'Добавить в корзину'}
+        ${this.productsInCart[this.product.id] ? 'Удалить из корзины' : 'Добавить в корзину'}
         </button>
         <a href='/#cart'>
         <button class='product__buy' data-product=${this.product.id}>Купить сейчас</button>

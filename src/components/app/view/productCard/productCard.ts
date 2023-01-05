@@ -1,10 +1,14 @@
-import { IProduct } from '../../../../types';
+import { ICartProduct, IProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
+import { getProductsInCart } from '../../controls/services/services';
 import './productCard.css';
 
 export class ProductCard extends BaseComponent {
+  private productsInCart: ICartProduct;
+
   constructor() {
     super('div', 'product__item');
+    this.productsInCart = getProductsInCart();
   }
 
   public createProductContainer(model: IProduct): HTMLElement {
@@ -22,7 +26,9 @@ export class ProductCard extends BaseComponent {
           <p class="product__price">ЦЕНА: ${model.price}</p>
         </div>
         </a>
-        <button class='product__buy' data-product=${model.id}>Купить</button>
+        <button class='product__buy' data-product=${model.id}>
+        ${this.productsInCart[model.id] ? 'Удалить из корзины' : 'Добавить в корзину'}
+        </button>
       `;
     return this.element;
   }
