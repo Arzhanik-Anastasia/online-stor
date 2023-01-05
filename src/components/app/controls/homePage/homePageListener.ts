@@ -1,5 +1,6 @@
 import { target } from 'nouislider';
 import { DEFAULT_FILTERS } from '../../../../data';
+import { ICartProduct } from '../../../../types';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
 import { getProductsInCart, setProductsInCart } from '../services/services';
 import { FilterController } from './filterController';
@@ -159,7 +160,7 @@ export class HomePageListener {
     toChartBtn.forEach((btn) => {
       const id = Number(btn.getAttribute('data-product')) as number;
       btn.addEventListener('click', () => {
-        const productsInCart = getProductsInCart();
+        const productsInCart:ICartProduct = getProductsInCart();
         if (!productsInCart[id]) {
           this.productDetailsController.addToCart(id/* , 'byCart' */);
         } else {

@@ -13,16 +13,13 @@ export function calcTotalPrice(products: ICartProduct): number {
   });
   return totalPrice;
 }
+
 export function calcTotalCount(products:ICartProduct): number {
-  let count = 0;
-  Object.keys(products).forEach((key) => {
-    count += products[`${+key}`];
-  });
-  return count;
+  return Object.values(products).reduce((acc, curr) => acc + curr, 0);
 }
 
 export function getProductsInCart():ICartProduct {
-  return localStorage.getItem('cart-products') ? JSON.parse(localStorage.getItem('cart-products') as string) : {};
+  return JSON.parse(localStorage.getItem('cart-products') as string) ?? {};
 }
 
 export function setProductsInCart(product: ICartProduct): void {

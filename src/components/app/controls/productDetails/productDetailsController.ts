@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/brace-style */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable class-methods-use-this */
 import { ICartProduct } from '../../../../types';
 import {
   calcTotalPrice,
@@ -56,10 +53,7 @@ export class ProductDetailsController {
   public changeHeaderInfo(): void {
     this.productsInCart = getProductsInCart();
     const headerCart = document.querySelector('.header__count') as HTMLElement;
-    let counter = 0;
-    for (const prod of Object.values(this.productsInCart)) {
-      counter += prod;
-    }
+    const counter = Object.values(this.productsInCart).reduce((acc, curr) => acc + curr, 0);
     const headerTotalPrice = document.querySelector('.header__total-price') as HTMLDivElement;
     const totalPrice: number = calcTotalPrice(this.productsInCart);
     headerCart.innerHTML = counter.toString();

@@ -27,7 +27,8 @@ export class CartPageController {
   public renderCartList(): void {
     const productsInCartListNode = document.querySelector('.products__inCart') as HTMLDivElement;
     productsInCartListNode.innerHTML = '';
-    if ((Object.keys(this.productsInCart)).length > 0) {
+    const counterProduct: string[] = Object.keys(this.productsInCart);
+    if (counterProduct.length > 0) {
       productsInCartListNode.append(...this.renderProducts());
     } else {
       productsInCartListNode.textContent = 'Нет товаров в корзине';
@@ -38,7 +39,8 @@ export class CartPageController {
     this.productsInCart = getProductsInCart();
     const counts = document.querySelectorAll('.productInCart__count-in-cart') as NodeListOf<Element>;
     counts.forEach((count) => {
-      if (Number(count.getAttribute('data-product')) === id) {
+      const attrProduct = Number(count.getAttribute('data-product'));
+      if (attrProduct === id) {
         count.innerHTML = String(this.productsInCart[id]);
       }
     });
@@ -61,7 +63,8 @@ export class CartPageController {
   private deleteProductItem(id: number): void {
     const allItemsInCart = document.querySelectorAll('.productInCart__item') as NodeListOf<Element>;
     allItemsInCart.forEach((item) => {
-      if (Number(item.getAttribute('data-product')) === id) {
+      const idDeletedProduct = Number(item.getAttribute('data-product'));
+      if (idDeletedProduct === id) {
         item.remove();
       }
       if (!document.querySelector('.productInCart__item')) {

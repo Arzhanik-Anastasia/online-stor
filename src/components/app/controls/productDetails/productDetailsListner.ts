@@ -1,5 +1,6 @@
 import { ProductDetailsController } from './productDetailsController';
 import { getIdFromUrl, getProductsInCart } from '../services/services';
+import { ICartProduct } from '../../../../types';
 
 export class ProductDetailsListener {
   private productDetailsController: ProductDetailsController;
@@ -35,8 +36,8 @@ export class ProductDetailsListener {
   private addListenerAddToChartBtn(): void {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      const productInCart = getProductsInCart();
-      const id = getIdFromUrl();
+      const productInCart:ICartProduct = getProductsInCart();
+      const id:number = getIdFromUrl();
       if (!productInCart[getIdFromUrl()]) {
         this.productDetailsController.addToCart(id);
       } else {
