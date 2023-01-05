@@ -1,6 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import { ProductDetailsController } from './productDetailsController';
 import { getIdFromUrl, getProductsInCart } from '../services/services';
-import { ICartProduct } from '../../../../types';
+import ModalBuy from '../../pages/modalBuy/modalBuy';
 
 export class ProductDetailsListener {
   private productDetailsController: ProductDetailsController;
@@ -36,8 +37,8 @@ export class ProductDetailsListener {
   private addListenerAddToChartBtn(): void {
     const toChartBtn = document.querySelector('.product__to-chart') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      const productInCart:ICartProduct = getProductsInCart();
-      const id:number = getIdFromUrl();
+      const productInCart = getProductsInCart();
+      const id = getIdFromUrl();
       if (!productInCart[getIdFromUrl()]) {
         this.productDetailsController.addToCart(id);
       } else {
@@ -52,9 +53,18 @@ export class ProductDetailsListener {
     // открывается модальное окно и переход на страницу с корзиной и этот товар добавить в корзину
     const toChartBtn = document.querySelector('.product__buy') as HTMLButtonElement;
     toChartBtn.addEventListener('click', () => {
-      this.productDetailsController.addToCart(getIdFromUrl());
+      /* this.productDetailsController.addToCart(getIdFromUrl());
       this.productDetailsController.changeAddBtnText(getIdFromUrl(), '.product__to-chart');
+      this.productDetailsController.changeHeaderInfo(); */
+      const productInCart = getProductsInCart();
+      const id = getIdFromUrl();
+      if (!productInCart[getIdFromUrl()]) {
+        this.productDetailsController.addToCart(id);
+      }
+      this.productDetailsController.changeAddBtnText(id, '.product__to-chart');
       this.productDetailsController.changeHeaderInfo();
+      const modal = new ModalBuy();
+      modal.renderView();
     });
   }
 }

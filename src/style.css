@@ -3,6 +3,11 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+  position: relative;
+}
+
 .container {
     max-width: 1160px;
     margin: 0 auto;
