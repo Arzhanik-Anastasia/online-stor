@@ -13,6 +13,10 @@
   color: black;
 }
 
+.item-link__grid-layout {
+    flex-direction: column;
+}
+
 .product__image-block {
     height: 150px;
     width: 150px;
@@ -51,4 +55,14 @@
     border-color: #0062cc;
     cursor: pointer;
     margin: 40px 0 0 20px;
+}
+
+.item__grid-layout {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.display-none {
+    display: none;
 }
