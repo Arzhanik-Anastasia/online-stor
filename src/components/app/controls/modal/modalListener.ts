@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import {
-  validateAdress, validateCardNumber, validateEmail, validateName, validatePhone, validateCardCVV,
+  validateAdress, validateCardNumber, validateEmail, validateName, validatePhone, validateCardCVV, formatDate,
 } from '../../../common/utils';
 import { setProductsInCart } from '../services/services';
 
@@ -112,7 +112,10 @@ export class ModalListener {
 
   private addListenerChangeDateCard():void {
     const inputDateCard = document.querySelector('.card-date') as HTMLInputElement;
+    const pattern = '**/**';
     inputDateCard.addEventListener('input', () => {
+      inputDateCard.value = formatDate(inputDateCard.value, pattern);
     });
+    inputDateCard.value = formatDate(inputDateCard.value, pattern);
   }
 }

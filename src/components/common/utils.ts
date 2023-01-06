@@ -30,3 +30,23 @@ export const validateAdress = (adress: string): boolean => {
 export const validateCardNumber = (card: string): boolean => card.length === 16;
 
 export const validateCardCVV = (cvv: string): boolean => cvv.length === 3;
+
+export const formatDate = (x:string, pattern:string): string => {
+  const strippedValue: string = x.replace(/[^0-9]/g, '');
+  const chars = strippedValue.split('');
+  let count = 0;
+
+  let formatted = '';
+  for (let i = 0; i < pattern.length; i++) {
+    const c = pattern[i];
+    if (chars[count]) {
+      if (/\*/.test(c)) {
+        formatted += chars[count];
+        count++;
+      } else {
+        formatted += c;
+      }
+    }
+  }
+  return formatted;
+};
