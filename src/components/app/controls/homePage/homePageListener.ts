@@ -27,7 +27,7 @@ export class HomePageListener {
     this.addListenerPrice();
     this.addListenerStock();
     this.addListenerReset();
-    // this.addListenerAddToChartBtn();
+    this.filtersController.loadFilters();
   }
 
   private addListenerToSortSelect(): void {

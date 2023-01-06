@@ -5,7 +5,7 @@ export class FilterController {
   filters: IFilters;
 
   constructor() {
-    this.filters = { ...DEFAULT_FILTERS };
+    this.filters = this.getFilter();
   }
 
   public getFilter():IFilters {
@@ -52,5 +52,29 @@ export class FilterController {
   public resetFilter(): void {
     this.filters = { ...DEFAULT_FILTERS };
     localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
+
+  public loadFilters(): void {
+    const categories = this.filters.category;
+    const { brands, colors, sort } = this.filters;
+    if (colors && colors.length !== DEFAULT_FILTERS.colors.length) {
+      colors.forEach((color:string) => {
+        document.querySelector(`[data-color='${color}']`)?.classList.add('active');
+      });
+    }
+    if (categories && categories.length !== DEFAULT_FILTERS.category.length) {
+      categories.forEach((category:string) => {
+        document.querySelector(`[data-category='${category}']`)?.classList.add('active');
+      });
+    }
+    if (brands && brands.length !== DEFAULT_FILTERS.category.length) {
+      brands.forEach((brand:string) => {
+        (document.querySelector(`[data-brand='${brand}']`) as HTMLInputElement).checked = true;
+      });
+    }
+    if (sort) {
+      const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
+      sortSelect.value = sort;
+    }
   }
 }
