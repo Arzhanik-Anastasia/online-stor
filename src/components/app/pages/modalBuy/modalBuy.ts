@@ -55,7 +55,7 @@ class ModalBuy extends BaseComponent {
         </div>
         <div class="card-date-block">
           <input
-            class="card-date"
+            class="card-date-input"
             placeholder="Date"
             type="text"
           />

@@ -31,6 +31,12 @@ export const validateCardNumber = (card: string): boolean => card.length === 16;
 
 export const validateCardCVV = (cvv: string): boolean => cvv.length === 3;
 
+export const validateDate = (date: string): boolean => {
+  const month:number = +date.slice(0, 2);
+  const day:number = +date.slice(-2);
+  return date.length >= 5 && month <= 12 && day <= 31;
+};
+
 export const formatDate = (x:string, pattern:string): string => {
   const strippedValue: string = x.replace(/[^0-9]/g, '');
   const chars = strippedValue.split('');

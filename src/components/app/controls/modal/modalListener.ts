@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import {
-  validateAdress, validateCardNumber, validateEmail, validateName, validatePhone, validateCardCVV, formatDate,
+  validateAdress, validateCardNumber, validateEmail, validateName, validatePhone, validateCardCVV, formatDate, validateDate,
 } from '../../../common/utils';
 import { setProductsInCart } from '../services/services';
 
@@ -64,13 +64,17 @@ export class ModalListener {
     const inputCVV = document.querySelector('.card-cvv-input') as HTMLInputElement;
     const errCVV = document.querySelector('.cvv-err') as HTMLDivElement;
     errCVV.textContent = validateCardCVV(inputCVV.value) ? '' : 'CVV is invalid';
+    const inputDate = document.querySelector('.card-date-input') as HTMLInputElement;
+    const errDate = document.querySelector('.date-err') as HTMLDivElement;
+    errDate.textContent = validateDate(inputDate.value) ? '' : 'Date is invalid';
 
     return validateName(inputName.value)
                           && validatePhone(inputPhone.value)
                           && validateAdress(inputAdress.value)
                           && validateEmail(inputEmail.value)
                           && validateCardNumber(inputCard.value)
-                          && validateCardCVV(inputCVV.value);
+                          && validateCardCVV(inputCVV.value)
+                          && validateDate(inputDate.value);
   }
 
   private addListenerCardChange():void {
@@ -111,7 +115,7 @@ export class ModalListener {
   }
 
   private addListenerChangeDateCard():void {
-    const inputDateCard = document.querySelector('.card-date') as HTMLInputElement;
+    const inputDateCard = document.querySelector('.card-date-input') as HTMLInputElement;
     const pattern = '**/**';
     inputDateCard.addEventListener('input', () => {
       inputDateCard.value = formatDate(inputDateCard.value, pattern);
