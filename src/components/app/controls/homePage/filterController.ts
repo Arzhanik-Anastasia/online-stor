@@ -67,7 +67,7 @@ export class FilterController {
         document.querySelector(`[data-category='${category}']`)?.classList.add('active');
       });
     }
-    if (brands && brands.length !== DEFAULT_FILTERS.category.length) {
+    if (brands && brands.length !== DEFAULT_FILTERS.brands.length) {
       brands.forEach((brand:string) => {
         (document.querySelector(`[data-brand='${brand}']`) as HTMLInputElement).checked = true;
       });
