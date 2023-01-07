@@ -27,3 +27,12 @@ export interface IFilters {
 export interface ICartProduct {
   [id: number]: number
 }
+
+export interface IFieldForm {
+  [key: string]: OrderField | string[];
+}
+
+export interface OrderField {
+  error: string;
+  validator: (value: string) => boolean;
+}

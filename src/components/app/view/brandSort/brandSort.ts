@@ -16,7 +16,7 @@ class BrandSort extends BaseComponent {
       const brandItem = new BaseComponent('li', 'brands__item', '');
       brandItem.element.innerHTML = `
           <label class="checkbox">
-            <input class="brands__input" type="checkbox" name="brand" value="${brand}">
+            <input class="brands__input" type="checkbox" name="brand" value="${brand}" data-brand="${brand}">
             <span class="checkbox__title">${brand}</span>
           </label>
         `;

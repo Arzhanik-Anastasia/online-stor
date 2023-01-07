@@ -27,8 +27,8 @@ export class HomePageListener {
     this.addListenerPrice();
     this.addListenerStock();
     this.addListenerReset();
+    this.filtersController.loadFilters();
     this.addListenerChangeLayoutBtn();
-    // this.addListenerAddToChartBtn();
   }
 
   private addListenerToSortSelect(): void {
@@ -149,6 +149,8 @@ export class HomePageListener {
       allBrands.forEach((elem) => { elem.checked = false; });
       stockSlider.noUiSlider!.set([DEFAULT_FILTERS.minStock, DEFAULT_FILTERS.maxStock]);
       priceSlider.noUiSlider!.set([DEFAULT_FILTERS.minPrice, DEFAULT_FILTERS.maxPrice]);
+      const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
+      sortSelect.value = DEFAULT_FILTERS.sort;
       this.filtersController.resetFilter();
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
