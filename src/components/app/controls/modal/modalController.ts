@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
+import { IFieldForm, OrderField } from '../../../../types';
+
 export class ModalController {
-  fieldForm: any;
+  fieldForm: IFieldForm;
 
   constructor() {
     this.fieldForm = {
@@ -37,21 +39,21 @@ export class ModalController {
   }
 
   public getFieldError(): string[] {
-    return this.fieldForm.errors;
+    return this.fieldForm.errors as string[];
   }
 
   public checkedInputs(input: HTMLInputElement): boolean {
     const nameInput = input.dataset.name as string;
     const errElement = document.querySelector(`.${nameInput}-err`) as HTMLElement;
-    const isValid = this.fieldForm[nameInput].validator(input.value);
+    const isValid = (this.fieldForm[nameInput] as OrderField).validator(input.value);
     if (isValid) {
-      this.fieldForm.errors.splice(this.fieldForm.errors.indexOf(nameInput), 1);
+      this.fieldForm.errors = (this.fieldForm.errors as string[]).filter((err) => err !== nameInput);
       errElement.textContent = '';
     } else {
-      if (!this.fieldForm.errors.includes(nameInput)) {
-        this.fieldForm.errors.push(nameInput);
+      if (!(this.fieldForm.errors as string[]).includes(nameInput)) {
+        (this.fieldForm.errors as string[]).push(nameInput);
       }
-      errElement.textContent = this.fieldForm[nameInput].error;
+      errElement.textContent = (this.fieldForm[nameInput] as OrderField).error;
     }
     return !!this.fieldForm.errors;
   }
