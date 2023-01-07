@@ -1,7 +1,6 @@
 .sort {
-    margin-left: auto;
-    width: 300px;
-    margin-bottom: 20px;
+    width: 30%;
+    text-align: right;
 }
 
 .select__title {
