@@ -68,7 +68,7 @@ class ModalBuy extends BaseComponent {
     <button class="btn__confirm" type="submit">CONFIRM</button>
   </form>
     `;
-    const overlay = document.createElement('div');
+    const overlay: HTMLDivElement = document.createElement('div');
     overlay.classList.add('overlay');
     document.body.append(overlay);
     document.body.append(this.element);

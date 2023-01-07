@@ -40,9 +40,9 @@ export class ModalListener {
     btnConfirm?.addEventListener('click', (e) => {
       e.preventDefault();
       const form = document.querySelector('form') as HTMLElement;
-      const inputsForm = form.querySelectorAll('input');
+      const inputsForm: NodeListOf<HTMLInputElement> = form.querySelectorAll('input');
       inputsForm.forEach((input) => this.modalController.checkedInputs(input));
-      const isValid = this.modalController.getFieldError();
+      const isValid: string[] = this.modalController.getFieldError();
 
       if (!isValid.length) {
         const modal = document.querySelector('.modal') as HTMLElement;

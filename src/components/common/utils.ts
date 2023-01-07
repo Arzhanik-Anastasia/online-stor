@@ -9,7 +9,7 @@ export const getMaxMinValueByField = (key: 'price' | 'stock', data: IProduct[]):
 
 export const formatDate = (x:string, pattern:string): string => {
   const strippedValue: string = x.replace(/[^0-9]/g, '');
-  const chars = strippedValue.split('');
+  const chars: string[] = strippedValue.split('');
   let count = 0;
 
   let formatted = '';
