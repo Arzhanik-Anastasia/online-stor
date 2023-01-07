@@ -16,19 +16,19 @@ class ModalBuy extends BaseComponent {
     <div class="person__details">
       <h4 class="person__details-title">Personal details</h4>
       <div class="person-name-block">
-        <input class="person-name" placeholder="Name" type="text" />
+        <input class="person-name" placeholder="Name" type="text" data-name="name"/>
         <p class="name-err"></p>
       </div>
       <div class="person-phone-block">
-        <input class="person-phone" placeholder="Phone" type="tel" />
+        <input class="person-phone" placeholder="Phone" type="tel" data-name="phone"/>
         <p class="phone-err"></p>
       </div>
       <div class="person-adress-block">
-        <input class="person-adress" placeholder="Adress" type="text" />
+        <input class="person-adress" placeholder="Adress" type="text" data-name="adress"/>
         <p class="adress-err"></p>
       </div>
       <div class="person-email-block">
-        <input class="person-email" placeholder="Email" type="email" />
+        <input class="person-email" placeholder="Email" type="email" data-name="email"/>
         <p class="email-err"></p>
       </div>
     </div>
@@ -45,12 +45,13 @@ class ModalBuy extends BaseComponent {
           placeholder="Card number"
           class="card-number-input"
           type="number"
+          data-name="number"
         />
       </div>
-      <p class="card-err"></p>
+      <p class="number-err"></p>
       <div class="card__info">
         <div class="card-cvv-block">
-          <input class="card-cvv-input" placeholder="CVV" type="number" />
+          <input class="card-cvv-input" placeholder="CVV" type="number" data-name="cvv"/>
           <p class="cvv-err"></p>
         </div>
         <div class="card-date-block">
@@ -58,6 +59,7 @@ class ModalBuy extends BaseComponent {
             class="card-date-input"
             placeholder="Date"
             type="text"
+            data-name="date"
           />
           <p class="date-err"></p>
         </div>

@@ -1,10 +1,16 @@
 /* eslint-disable class-methods-use-this */
-import {
-  validateAdress, validateCardNumber, validateEmail, validateName, validatePhone, validateCardCVV, formatDate, validateDate,
-} from '../../../common/utils';
+
+import { formatDate } from '../../../common/utils';
 import { setProductsInCart } from '../services/services';
+import { ModalController } from './modalController';
 
 export class ModalListener {
+  modalController: ModalController;
+
+  constructor() {
+    this.modalController = new ModalController();
+  }
+
   public initListener():void {
     this.addListenerToOverlay();
     this.addListenerConfirm();
@@ -33,8 +39,12 @@ export class ModalListener {
     const btnConfirm = document.querySelector('.btn__confirm');
     btnConfirm?.addEventListener('click', (e) => {
       e.preventDefault();
-      const isValid: boolean = this.checkedValidation();
-      if (isValid) {
+      const form = document.querySelector('form') as HTMLElement;
+      const inputsForm = form.querySelectorAll('input');
+      inputsForm.forEach((input) => this.modalController.checkedInputs(input));
+      const isValid = this.modalController.getFieldError();
+
+      if (!isValid.length) {
         const modal = document.querySelector('.modal') as HTMLElement;
         modal.innerHTML = 'Thank you for your order. In a few seconds you will be redirected to the main page';
         setTimeout(() => {
@@ -43,38 +53,6 @@ export class ModalListener {
         }, 5000);
       }
     });
-  }
-
-  private checkedValidation(): boolean {
-    const inputName = document.querySelector('.person-name') as HTMLInputElement;
-    const errName = document.querySelector('.name-err') as HTMLDivElement;
-    errName.textContent = validateName(inputName.value) ? '' : 'Name is invalid';
-    const inputPhone = document.querySelector('.person-phone') as HTMLInputElement;
-    const errPhone = document.querySelector('.phone-err') as HTMLDivElement;
-    errPhone.textContent = validatePhone(inputPhone.value) ? '' : 'Phone is invalid';
-    const inputAdress = document.querySelector('.person-adress') as HTMLInputElement;
-    const errAdress = document.querySelector('.adress-err') as HTMLDivElement;
-    errAdress.textContent = validateAdress(inputAdress.value) ? '' : 'Adress is invalid';
-    const inputEmail = document.querySelector('.person-email') as HTMLInputElement;
-    const errEmail = document.querySelector('.email-err') as HTMLDivElement;
-    errEmail.textContent = validateEmail(inputEmail.value) ? '' : 'Email is invalid';
-    const inputCard = document.querySelector('.card-number-input') as HTMLInputElement;
-    const errCard = document.querySelector('.card-err') as HTMLDivElement;
-    errCard.textContent = validateCardNumber(inputCard.value) ? '' : 'Card is invalid';
-    const inputCVV = document.querySelector('.card-cvv-input') as HTMLInputElement;
-    const errCVV = document.querySelector('.cvv-err') as HTMLDivElement;
-    errCVV.textContent = validateCardCVV(inputCVV.value) ? '' : 'CVV is invalid';
-    const inputDate = document.querySelector('.card-date-input') as HTMLInputElement;
-    const errDate = document.querySelector('.date-err') as HTMLDivElement;
-    errDate.textContent = validateDate(inputDate.value) ? '' : 'Date is invalid';
-
-    return validateName(inputName.value)
-                          && validatePhone(inputPhone.value)
-                          && validateAdress(inputAdress.value)
-                          && validateEmail(inputEmail.value)
-                          && validateCardNumber(inputCard.value)
-                          && validateCardCVV(inputCVV.value)
-                          && validateDate(inputDate.value);
   }
 
   private addListenerCardChange():void {
