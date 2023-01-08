@@ -123,4 +123,13 @@ export class FilterController {
       this.toggleClasslist(productList, '.product__item-link', 'item-link__grid-layout', 'remove');
     }
   }
+
+  public copyUrl(): void {
+    const copytext = document.createElement('input');
+    copytext.value = window.location.href;
+    document.body.appendChild(copytext);
+    copytext.select();
+    document.execCommand('copy');
+    document.body.removeChild(copytext);
+  }
 }

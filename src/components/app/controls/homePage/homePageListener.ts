@@ -29,6 +29,7 @@ export class HomePageListener {
     this.addListenerReset();
     this.filtersController.loadFilters();
     this.addListenerChangeLayoutBtn();
+    this.addEventListenerCopyUrl();
   }
 
   private addListenerToSortSelect(): void {
@@ -184,6 +185,13 @@ export class HomePageListener {
         this.productDetailsController.changeHeaderInfo();
         this.productDetailsController.changeAddBtnText(id, '.product__buy');
       });
+    });
+  }
+
+  private addEventListenerCopyUrl(): void {
+    const copyUrlBtn = document.querySelector('.copy__url') as HTMLButtonElement;
+    copyUrlBtn.addEventListener('click', () => {
+      this.filtersController.copyUrl();
     });
   }
 }
