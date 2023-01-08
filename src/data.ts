@@ -298,7 +298,7 @@ const data: IProduct[] = [
 
   {
     id: 20,
-    name: 'REEBOK GURESU 2.0 MAROON/PROPNK/MIDSHA',
+    name: 'REEBOK GURESU 2.0 MAROON/ PROPNK/ MIDSHA',
     brand: Brand.reebok,
     category: Category.running,
     price: 168,

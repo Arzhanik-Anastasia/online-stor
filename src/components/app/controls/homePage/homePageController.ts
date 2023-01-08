@@ -1,6 +1,7 @@
 import { IFilters, IProduct } from '../../../../types';
 import { ProductCard } from '../../view/productCard/productCard';
 import { FilterController } from './filterController';
+import { declOfNum } from '../services/services';
 import data from '../../../../data';
 
 export class HomePageController {
@@ -26,11 +27,15 @@ export class HomePageController {
   public renderList(): void {
     const productListNode = document.querySelector('.product__list') as HTMLDivElement;
     productListNode.innerHTML = '';
+    this.changeCountOfFilteredProduct();
     if (this.filteredProduct.length > 0) {
       productListNode.append(...this.renderAllProduct());
     } else {
       productListNode.textContent = 'Совпадений не найдено';
     }
+    const layot = this.filterController.getCurrentLayout() as string;
+    this.filterController.changeLayout(layot);
+    this.filterController.setLayoutActiveBtn(layot);
   }
 
   public sortCards():void {
@@ -61,5 +66,13 @@ export class HomePageController {
     );
     this.sortCards();
     this.renderList();
+  }
+
+  private changeCountOfFilteredProduct(): void {
+    const count = this.filteredProduct.length;
+    const countWrapper = document.querySelector('.filtered-product__count') as HTMLDivElement;
+    if (count > 0) { countWrapper.textContent = `${declOfNum(['Найден', 'Найдено', 'Найдены'], count, ['товар', 'товара', 'товаров'])}`; } else {
+      countWrapper.textContent = '';
+    }
   }
 }

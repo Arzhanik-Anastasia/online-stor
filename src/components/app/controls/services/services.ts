@@ -31,3 +31,10 @@ export function getIdFromUrl(): number {
   const idProduct:number = +path.split('=')[1];
   return idProduct;
 }
+
+export function declOfNum(verb: string[], numb: number, titles: string[]): string {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return `${verb[(numb % 100 > 4 && numb % 100 < 20) ? 2 : cases[(numb % 10 < 5) ? numb % 10 : 5]]}
+  ${numb}
+  ${titles[(numb % 100 > 4 && numb % 100 < 20) ? 2 : cases[(numb % 10 < 5) ? numb % 10 : 5]]}`;
+}

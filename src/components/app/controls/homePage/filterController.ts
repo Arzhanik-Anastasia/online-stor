@@ -90,7 +90,26 @@ export class FilterController {
     });
   }
 
-  public changeLayout(layout: string): void {
+  public getCurrentLayout():string {
+    return JSON.parse(localStorage.getItem('layot') as string) ?? 'list';
+  }
+
+  private setCurrentLayout(layot: string | null): void {
+    localStorage.setItem('layot', JSON.stringify(layot));
+  }
+
+  public setLayoutActiveBtn(layot: string | null): void {
+    const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
+    layoutBtns.forEach((btnEl) => {
+      btnEl.classList.remove('active');
+      if (btnEl.getAttribute('data-display') === layot) {
+        btnEl.classList.add('active');
+      }
+    });
+  }
+
+  public changeLayout(layout: string | null): void {
+    this.setCurrentLayout(layout);
     const productList = document.querySelector('.product__list') as HTMLDivElement;
     if (layout === 'grid') {
       productList.classList.add('list__grid-layout');

@@ -162,10 +162,9 @@ export class HomePageListener {
     const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
     layoutBtns.forEach((btn) => {
       btn.addEventListener('click', (e: Event) => {
-        layoutBtns.forEach((btnEl) => { btnEl.classList.remove('active'); });
-        (e.target as HTMLButtonElement).classList.add('active');
         const layout = (e.target as HTMLButtonElement).getAttribute('data-display') as string;
         this.filtersController.changeLayout(layout);
+        this.filtersController.setLayoutActiveBtn(layout);
       });
     });
   }
