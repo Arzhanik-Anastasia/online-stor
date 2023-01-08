@@ -124,12 +124,16 @@ export class FilterController {
     }
   }
 
-  public copyUrl(): void {
+  public copyUrl(btn: HTMLButtonElement): void {
     const copytext = document.createElement('input');
     copytext.value = window.location.href;
     document.body.appendChild(copytext);
     copytext.select();
     document.execCommand('copy');
     document.body.removeChild(copytext);
+    btn.textContent = 'Адрес скопирован!';
+    setTimeout(() => {
+      btn.textContent = 'Копировать адрес';
+    }, 2000);
   }
 }

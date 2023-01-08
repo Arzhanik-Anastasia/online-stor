@@ -191,7 +191,7 @@ export class HomePageListener {
   private addEventListenerCopyUrl(): void {
     const copyUrlBtn = document.querySelector('.copy__url') as HTMLButtonElement;
     copyUrlBtn.addEventListener('click', () => {
-      this.filtersController.copyUrl();
+      this.filtersController.copyUrl(copyUrlBtn);
     });
   }
 }
