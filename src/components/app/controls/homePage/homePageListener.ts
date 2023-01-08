@@ -26,6 +26,7 @@ export class HomePageListener {
     this.addListenerBrand();
     this.addListenerPrice();
     this.addListenerStock();
+    this.addListenerSearch();
     this.addListenerReset();
     this.filtersController.loadFilters();
     this.addListenerChangeLayoutBtn();
@@ -151,6 +152,8 @@ export class HomePageListener {
       priceSlider.noUiSlider!.set([DEFAULT_FILTERS.minPrice, DEFAULT_FILTERS.maxPrice]);
       const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
       sortSelect.value = DEFAULT_FILTERS.sort;
+      const searchInput = document.querySelector('.search__input') as HTMLSelectElement;
+      searchInput.value = DEFAULT_FILTERS.search;
       this.filtersController.resetFilter();
       this.homePageController.sortCards();
       this.homePageController.applyFilter();
@@ -185,6 +188,14 @@ export class HomePageListener {
         this.productDetailsController.changeHeaderInfo();
         this.productDetailsController.changeAddBtnText(id, '.product__buy');
       });
+    });
+  }
+
+  private addListenerSearch(): void {
+    const inputSearch = document.querySelector('.search__input') as HTMLInputElement;
+    inputSearch.addEventListener('input', () => {
+      this.filtersController.changeSearch(inputSearch.value);
+      this.homePageController.applyFilter();
     });
   }
 }
