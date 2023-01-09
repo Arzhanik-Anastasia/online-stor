@@ -5,7 +5,7 @@ export function findProductFromData(id: number):IProduct {
   return data.find((el: IProduct) => el.id === id) as IProduct;
 }
 
-export function calcTotalPrice(products: ICartProduct, promo?:number): number {
+export function calcTotalPrice(products: ICartProduct, promo?: number): number {
   let totalPrice = 0;
   Object.keys(products).forEach((key) => {
     const modelProduct = data.find((el: IProduct) => el.id === +key);
@@ -14,7 +14,7 @@ export function calcTotalPrice(products: ICartProduct, promo?:number): number {
       totalPrice -= totalPrice * promo;
     }
   });
-  return totalPrice;
+  return Math.floor(totalPrice);
 }
 
 export function calcTotalCount(products:ICartProduct): number {
@@ -27,6 +27,18 @@ export function getProductsInCart():ICartProduct {
 
 export function setProductsInCart(product: ICartProduct): void {
   localStorage.setItem('cart-products', JSON.stringify(product));
+}
+
+export function getPromo(): string[] {
+  return JSON.parse(localStorage.getItem('promo') as string) ?? [];
+}
+
+export function setPromo(promo: string[]): void {
+  localStorage.setItem('promo', JSON.stringify(promo));
+}
+
+export function getDiscount(promo: string[]): number | null {
+  return promo ? promo.length / 10 : null;
 }
 
 export function getIdFromUrl(): number {

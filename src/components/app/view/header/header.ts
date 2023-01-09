@@ -1,6 +1,8 @@
 import { ICartProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
-import { getProductsInCart, calcTotalPrice, calcTotalCount } from '../../controls/services/services';
+import {
+  getProductsInCart, calcTotalPrice, calcTotalCount, getDiscount, getPromo,
+} from '../../controls/services/services';
 import './header.css';
 
 class Header extends BaseComponent {
@@ -13,8 +15,7 @@ class Header extends BaseComponent {
   }
 
   private renderHeader():void {
-    const promo = JSON.parse(localStorage.getItem('promo') as string);
-    const discount = promo ? promo.length / 10 : null;
+    const discount: number | null = getDiscount(getPromo());
     this.element.innerHTML = `
     <div class="container header__wrapper">
         <div class="header__logo">

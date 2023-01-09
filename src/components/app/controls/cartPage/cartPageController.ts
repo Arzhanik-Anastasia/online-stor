@@ -4,8 +4,9 @@ import { ICartProduct, IProduct } from '../../../../types';
 import { CartSummary } from '../../view/cartSummary/cartSummary';
 import { ProductInCartItem } from '../../view/productInCartItem/productInCartItem';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
+import { PromoActive } from '../../view/promoActive/promoActive';
 import {
-  getProductsInCart, calcTotalPrice, calcTotalCount,
+  getProductsInCart, calcTotalPrice, calcTotalCount, getPromo, getDiscount,
 } from '../services/services';
 
 export class CartPageController {
@@ -39,7 +40,7 @@ export class CartPageController {
       this.cartSummary.renderNewPrice();
     } else {
       productsInCartListNode.textContent = 'Нет товаров в корзине';
-      if (document.querySelector('.cart__summary')) document.querySelector('.cart__summary')!.remove();
+      document.querySelector('.cart__summary')?.remove();
     }
   }
 
@@ -57,11 +58,10 @@ export class CartPageController {
   private changeCountInSummary(): void {
     const totalPrice = document.querySelector('.total__price') as HTMLDivElement;
     const totalCount = document.querySelector('.total__count') as HTMLDivElement;
-    const promo = JSON.parse(localStorage.getItem('promo') as string);
-    const discount = promo ? promo.length / 10 : null;
+    const discount: number | null = getDiscount(getPromo());
     if (discount) {
       const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
-      newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart) - (calcTotalPrice(this.productsInCart) * discount)}`;
+      newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart, discount)}`;
       totalPrice.classList.add('old');
     }
     totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
@@ -106,5 +106,13 @@ export class CartPageController {
     if (!this.productsInCart[id]) {
       this.deleteProductItem(id);
     }
+  }
+
+  public applyPromoCode(applyPromo: string[]): void {
+    const promoBlock = document.querySelector('.promo-block') as HTMLDivElement;
+    applyPromo.forEach((item) => {
+      const activeBlock: PromoActive = new PromoActive();
+      activeBlock.renderBlock(promoBlock, item);
+    });
   }
 }

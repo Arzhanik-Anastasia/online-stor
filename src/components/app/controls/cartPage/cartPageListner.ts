@@ -3,19 +3,21 @@ import { ICartProduct, IProduct } from '../../../../types';
 import ModalBuy from '../../pages/modalBuy/modalBuy';
 import { PromoActive } from '../../view/promoActive/promoActive';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
-import { calcTotalPrice, getProductsInCart } from '../services/services';
+import {
+  calcTotalPrice, getProductsInCart, getPromo, setPromo, getDiscount,
+} from '../services/services';
 import { CartPageController } from './cartPageController';
 
 export class CartPageListener {
   private cartPageController: CartPageController;
+
+  private productDetailsController: ProductDetailsController;
 
   modal: ModalBuy;
 
   productsInCart:ICartProduct;
 
   promoCode: string[];
-
-  productDetailsController: ProductDetailsController;
 
   applyPromo: string[];
 
@@ -25,8 +27,7 @@ export class CartPageListener {
     this.productDetailsController = new ProductDetailsController();
     this.modal = new ModalBuy();
     this.promoCode = ['rss', 'js'];
-    this.applyPromo = [];
-    this.getPromo();
+    this.applyPromo = getPromo();
   }
 
   public initListener():void {
@@ -34,7 +35,7 @@ export class CartPageListener {
     this.addListenerToDecBtn();
     this.addListenerBuy();
     this.addListenerPromo();
-    this.applyPromoCode();
+    this.addListenerToPromoDropBtn();
   }
 
   private addListenerToIncBtn(): void {
@@ -77,8 +78,8 @@ export class CartPageListener {
     const promoBlock = document.querySelector('.promo-block') as HTMLDivElement;
     if (inputPromo) {
       inputPromo.addEventListener('input', () => {
-        this.getPromo();
-        const promoBlockButton = document.createElement('button');
+        this.applyPromo = getPromo();
+        const promoBlockButton = document.createElement('button') as HTMLButtonElement;
         promoBlockButton.classList.add('btn__promo');
         if (this.promoCode.includes(inputPromo.value) && !this.applyPromo.includes(inputPromo.value)) {
           promoBlockButton.innerHTML = 'Add promo';
@@ -87,37 +88,49 @@ export class CartPageListener {
             if (!this.applyPromo.includes(inputPromo.value)) {
               this.applyPromo.push(inputPromo.value);
             }
-            const activeBlock = new PromoActive();
+            setPromo(this.applyPromo);
+            const activeBlock: PromoActive = new PromoActive();
             activeBlock.renderBlock(promoBlock, inputPromo.value);
             const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
-            const discount = this.applyPromo ? this.applyPromo.length / 10 : null;
+            const discount: number | null = getDiscount(getPromo());
             const totalPrice: number = discount ? calcTotalPrice(getProductsInCart(), discount) : calcTotalPrice(getProductsInCart());
-            newPriceBlock.innerHTML = `Новая цена ${totalPrice}`;
+            newPriceBlock.innerHTML = `Новая цена: ${totalPrice}`;
+            this.addListenerToPromoDropBtn();
             const totalPriceBlock = document.querySelector('.total__price') as HTMLDivElement;
             totalPriceBlock.classList.add('old');
-            localStorage.setItem('promo', JSON.stringify(this.applyPromo));
             promoBlock.querySelector('.btn__promo')?.remove();
             this.productDetailsController.changeHeaderInfo();
           });
         } else if (!this.promoCode.includes(inputPromo.value)) {
           const btnPromo = document.querySelector('.btn__promo') as HTMLButtonElement;
-          if (btnPromo) btnPromo.remove();
+          btnPromo?.remove();
         }
       });
     }
+    this.cartPageController.applyPromoCode(this.applyPromo);
   }
 
-  private getPromo(): void {
-    const promoFromLocal = localStorage.getItem('promo') as string;
-    this.applyPromo = promoFromLocal ? JSON.parse(promoFromLocal) : [];
-  }
-
-  private applyPromoCode(): void {
-    this.getPromo();
-    const promoBlock = document.querySelector('.promo-block') as HTMLDivElement;
-    this.applyPromo.forEach((item) => {
-      const activeBlock = new PromoActive();
-      activeBlock.renderBlock(promoBlock, item);
+  private addListenerToPromoDropBtn() {
+    const dropButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.promo__button');
+    dropButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const deletedPromo = btn.getAttribute('data-promo') as string;
+        this.applyPromo = getPromo().filter((promo) => promo !== deletedPromo);
+        setPromo(this.applyPromo);
+        const totalPrice:number = calcTotalPrice(this.productsInCart);
+        const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
+        if (this.applyPromo.length) {
+          newPriceBlock.innerHTML = `Новая цена ${totalPrice}`;
+        } else {
+          newPriceBlock.innerHTML = '';
+          document.querySelector('.total__price')?.classList.remove('old');
+        }
+        (document.querySelector('.promo') as HTMLInputElement).value = '';
+        document.querySelector('.total__price')!.textContent = `Общая стоимость: ${totalPrice}`;
+        this.productDetailsController.changeHeaderInfo();
+        const deletedBlock = document.querySelector(`[data-promo-block=${deletedPromo}]`) as HTMLDivElement;
+        if (deletedBlock) deletedBlock.remove();
+      });
     });
   }
 }
