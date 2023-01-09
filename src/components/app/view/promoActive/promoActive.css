@@ -1,9 +1,4 @@
-.wrapper__cart {
-    display: flex;
-    justify-content: space-around;
-}
-
-.btn__promo {
+.promo__button {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -18,8 +13,4 @@
   border-color: #0062cc;
   cursor: pointer;
   margin: 40px 0 0 0;
-}
-
-.old {
-  text-decoration: line-through;
 }

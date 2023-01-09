@@ -1,8 +1,9 @@
 import { ICartProduct } from '../../../../types';
 import {
-  calcTotalPrice,
+  calcTotalCount,
   setProductsInCart,
   getProductsInCart,
+  calcDicountPrice,
 } from '../services/services';
 
 export class ProductDetailsController {
@@ -53,10 +54,10 @@ export class ProductDetailsController {
   public changeHeaderInfo(): void {
     this.productsInCart = getProductsInCart();
     const headerCart = document.querySelector('.header__count') as HTMLElement;
-    const counter = Object.values(this.productsInCart).reduce((acc, curr) => acc + curr, 0);
+    const counter: number = calcTotalCount(this.productsInCart);
     const headerTotalPrice = document.querySelector('.header__total-price') as HTMLDivElement;
-    const totalPrice: number = calcTotalPrice(this.productsInCart);
+    const dicountPrice: number = Math.floor(calcDicountPrice());
     headerCart.innerHTML = counter.toString();
-    headerTotalPrice.innerHTML = `Cart total: ${totalPrice}`;
+    headerTotalPrice.innerHTML = `Cart total: ${dicountPrice}`;
   }
 }

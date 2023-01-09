@@ -1,20 +1,25 @@
 /* eslint-disable class-methods-use-this */
 import data from '../../../../data';
 import { ICartProduct, IProduct } from '../../../../types';
+import { CartSummary } from '../../view/cartSummary/cartSummary';
 import { ProductInCartItem } from '../../view/productInCartItem/productInCartItem';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
+import { PromoActive } from '../../view/promoActive/promoActive';
 import {
-  getProductsInCart, calcTotalPrice, calcTotalCount,
+  getProductsInCart, calcTotalPrice, calcTotalCount, getPromo, getDiscount, calcDicountPrice,
 } from '../services/services';
 
 export class CartPageController {
   private productsInCart: ICartProduct;
+
+  private cartSummary: CartSummary;
 
   private productDetailsController: ProductDetailsController;
 
   constructor() {
     this.productsInCart = getProductsInCart();
     this.productDetailsController = new ProductDetailsController();
+    this.cartSummary = new CartSummary();
   }
 
   private renderProducts(): HTMLElement[] {
@@ -30,8 +35,12 @@ export class CartPageController {
     const counterProduct: string[] = Object.keys(this.productsInCart);
     if (counterProduct.length > 0) {
       productsInCartListNode.append(...this.renderProducts());
+      const wrapper = document.querySelector('.wrapper__cart') as HTMLDivElement;
+      wrapper.append(this.cartSummary.element);
+      this.cartSummary.renderNewPrice();
     } else {
       productsInCartListNode.textContent = 'Нет товаров в корзине';
+      document.querySelector('.cart__summary')?.remove();
     }
   }
 
@@ -47,9 +56,16 @@ export class CartPageController {
   }
 
   private changeCountInSummary(): void {
-    const totalCount = document.querySelector('.total__count') as HTMLDivElement;
-    totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
     const totalPrice = document.querySelector('.total__price') as HTMLDivElement;
+    const totalCount = document.querySelector('.total__count') as HTMLDivElement;
+    const discount: number | null = getDiscount(getPromo());
+    if (discount) {
+      const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
+      const dicountPrice: number = Math.floor(calcDicountPrice());
+      newPriceBlock.innerHTML = `Новая цена ${dicountPrice}`;
+      totalPrice.classList.add('old');
+    }
+    totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
     totalPrice.innerHTML = `Общая стоимость: ${calcTotalPrice(this.productsInCart)}`;
   }
 
@@ -70,13 +86,14 @@ export class CartPageController {
       if (!document.querySelector('.productInCart__item')) {
         const productsInCartListNode = document.querySelector('.products__inCart') as HTMLDivElement;
         productsInCartListNode.textContent = 'Нет товаров в корзине';
+        if (document.querySelector('.cart__summary')) document.querySelector('.cart__summary')!.remove();
       }
     });
     this.resetIndexes();
   }
 
   public incProductCount(id: number): void {
-    this.productDetailsController.addToCart(id/* , 'inc' */);
+    this.productDetailsController.addToCart(id);
     this.productDetailsController.changeHeaderInfo();
     this.changeCountInControl(id);
     this.changeCountInSummary();
@@ -90,5 +107,13 @@ export class CartPageController {
     if (!this.productsInCart[id]) {
       this.deleteProductItem(id);
     }
+  }
+
+  public applyPromoCode(applyPromo: string[]): void {
+    const promoBlock = document.querySelector('.promo-block') as HTMLDivElement;
+    applyPromo.forEach((item) => {
+      const activeBlock: PromoActive = new PromoActive();
+      activeBlock.renderBlock(promoBlock, item);
+    });
   }
 }
