@@ -1,7 +1,7 @@
 import { ICartProduct } from '../../../../types';
 import { BaseComponent } from '../../../common/baseComponent';
 import {
-  calcTotalCount, calcTotalPrice, getProductsInCart, getDiscount, getPromo,
+  calcTotalCount, calcTotalPrice, getProductsInCart, getDiscount, getPromo, calcDicountPrice,
 } from '../../controls/services/services';
 import './cartSummary.css';
 
@@ -34,7 +34,7 @@ export class CartSummary extends BaseComponent {
     const totalPrice = this.element.querySelector('.total__price') as HTMLDivElement;
     const discount: number | null = getDiscount(getPromo());
     if (discount) {
-      newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart) - (calcTotalPrice(this.productsInCart) * discount)}`;
+      newPriceBlock.innerHTML = `Новая цена ${Math.floor(calcDicountPrice())}`;
       totalPrice.classList.add('old');
     }
   }

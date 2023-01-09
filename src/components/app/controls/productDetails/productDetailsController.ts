@@ -1,11 +1,9 @@
 import { ICartProduct } from '../../../../types';
 import {
-  calcTotalPrice,
   calcTotalCount,
   setProductsInCart,
   getProductsInCart,
-  getPromo,
-  getDiscount,
+  calcDicountPrice,
 } from '../services/services';
 
 export class ProductDetailsController {
@@ -58,9 +56,8 @@ export class ProductDetailsController {
     const headerCart = document.querySelector('.header__count') as HTMLElement;
     const counter: number = calcTotalCount(this.productsInCart);
     const headerTotalPrice = document.querySelector('.header__total-price') as HTMLDivElement;
-    const discount: number | null = getDiscount(getPromo());
-    const totalPrice: number = discount ? calcTotalPrice(getProductsInCart(), discount) : calcTotalPrice(getProductsInCart());
+    const dicountPrice: number = Math.floor(calcDicountPrice());
     headerCart.innerHTML = counter.toString();
-    headerTotalPrice.innerHTML = `Cart total: ${totalPrice}`;
+    headerTotalPrice.innerHTML = `Cart total: ${dicountPrice}`;
   }
 }

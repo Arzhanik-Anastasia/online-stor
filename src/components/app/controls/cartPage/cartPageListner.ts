@@ -4,7 +4,7 @@ import ModalBuy from '../../pages/modalBuy/modalBuy';
 import { PromoActive } from '../../view/promoActive/promoActive';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
 import {
-  calcTotalPrice, getProductsInCart, getPromo, setPromo, getDiscount,
+  getProductsInCart, getPromo, setPromo, calcDicountPrice,
 } from '../services/services';
 import { CartPageController } from './cartPageController';
 
@@ -92,9 +92,8 @@ export class CartPageListener {
             const activeBlock: PromoActive = new PromoActive();
             activeBlock.renderBlock(promoBlock, inputPromo.value);
             const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
-            const discount: number | null = getDiscount(getPromo());
-            const totalPrice: number = discount ? calcTotalPrice(getProductsInCart(), discount) : calcTotalPrice(getProductsInCart());
-            newPriceBlock.innerHTML = `Новая цена: ${totalPrice}`;
+            const dicountPrice: number = Math.floor(calcDicountPrice());
+            newPriceBlock.innerHTML = `Новая цена: ${dicountPrice}`;
             this.addListenerToPromoDropBtn();
             const totalPriceBlock = document.querySelector('.total__price') as HTMLDivElement;
             totalPriceBlock.classList.add('old');
@@ -117,16 +116,16 @@ export class CartPageListener {
         const deletedPromo = btn.getAttribute('data-promo') as string;
         this.applyPromo = getPromo().filter((promo) => promo !== deletedPromo);
         setPromo(this.applyPromo);
-        const totalPrice:number = calcTotalPrice(this.productsInCart);
+        const dicountPrice: number = Math.floor(calcDicountPrice());
         const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
         if (this.applyPromo.length) {
-          newPriceBlock.innerHTML = `Новая цена ${totalPrice}`;
+          newPriceBlock.innerHTML = `Новая цена ${dicountPrice}`;
         } else {
           newPriceBlock.innerHTML = '';
           document.querySelector('.total__price')?.classList.remove('old');
         }
         (document.querySelector('.promo') as HTMLInputElement).value = '';
-        document.querySelector('.total__price')!.textContent = `Общая стоимость: ${totalPrice}`;
+        document.querySelector('.total__price')!.textContent = `Общая стоимость: ${dicountPrice}`;
         this.productDetailsController.changeHeaderInfo();
         const deletedBlock = document.querySelector(`[data-promo-block=${deletedPromo}]`) as HTMLDivElement;
         if (deletedBlock) deletedBlock.remove();

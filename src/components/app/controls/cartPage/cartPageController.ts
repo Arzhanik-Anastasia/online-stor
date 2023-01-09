@@ -6,7 +6,7 @@ import { ProductInCartItem } from '../../view/productInCartItem/productInCartIte
 import { ProductDetailsController } from '../productDetails/productDetailsController';
 import { PromoActive } from '../../view/promoActive/promoActive';
 import {
-  getProductsInCart, calcTotalPrice, calcTotalCount, getPromo, getDiscount,
+  getProductsInCart, calcTotalPrice, calcTotalCount, getPromo, getDiscount, calcDicountPrice,
 } from '../services/services';
 
 export class CartPageController {
@@ -61,7 +61,8 @@ export class CartPageController {
     const discount: number | null = getDiscount(getPromo());
     if (discount) {
       const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
-      newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart, discount)}`;
+      const dicountPrice: number = Math.floor(calcDicountPrice());
+      newPriceBlock.innerHTML = `Новая цена ${dicountPrice}`;
       totalPrice.classList.add('old');
     }
     totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
