@@ -54,6 +54,7 @@ export class HomePageController {
 
   public applyFilter(): void {
     this.filters = this.filterController.getFilter();
+    let { search } = this.filters;
     this.filteredProduct = this.allProduct.filter(
       (item) => (this.filters.category.indexOf(item.category) !== -1
         && this.filters.colors.indexOf(item.color) !== -1
@@ -64,6 +65,15 @@ export class HomePageController {
         && item.stock <= this.filters.maxStock
       ),
     );
+    if (search !== '') {
+      search = search.toLowerCase();
+      this.filteredProduct = this.filteredProduct.filter((item:IProduct) => (item.name.toLowerCase().includes(search))
+                        || item.brand.toLowerCase().includes(search)
+                        || item.category.toLowerCase().includes(search)
+                        || item.color.toLowerCase().includes(search)
+                        || item.season.toLowerCase().includes(search)
+                        || item.description.toLowerCase().includes(search));
+    }
     this.sortCards();
     this.renderList();
   }

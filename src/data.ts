@@ -9,6 +9,7 @@ export const DEFAULT_FILTERS = {
   minPrice: 110,
   maxPrice: 490,
   sort: 'sort-name-max',
+  search: '',
 };
 
 export enum Brand {

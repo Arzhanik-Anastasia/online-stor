@@ -55,9 +55,16 @@ export class FilterController {
     localStorage.setItem('store-filter', JSON.stringify(this.filters));
   }
 
+  public changeSearch(str: string): void {
+    this.filters.search = str;
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
+
   public loadFilters(): void {
     const categories = this.filters.category;
-    const { brands, colors, sort } = this.filters;
+    const {
+      brands, colors, sort, search,
+    } = this.filters;
     if (colors && colors.length !== DEFAULT_FILTERS.colors.length) {
       colors.forEach((color:string) => {
         document.querySelector(`[data-color='${color}']`)?.classList.add('active');
@@ -77,6 +84,8 @@ export class FilterController {
       const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
       sortSelect.value = sort;
     }
+    const inputSearch = document.querySelector('.search__input') as HTMLInputElement;
+    inputSearch.value = search;
   }
 
   private toggleClasslist(parent: HTMLDivElement, selector: string, style: string, method: string): void {
