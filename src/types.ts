@@ -22,6 +22,7 @@ export interface IFilters {
   minPrice: number,
   maxPrice: number,
   sort: string,
+  search: string,
 }
 
 export interface ICartProduct {
