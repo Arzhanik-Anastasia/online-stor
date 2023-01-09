@@ -101,8 +101,9 @@ export class FilterController {
   public setLayoutActiveBtn(layot: string | null): void {
     const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
     layoutBtns.forEach((btnEl) => {
+      const currentLayout = btnEl.getAttribute('data-display') as string;
       btnEl.classList.remove('active');
-      if (btnEl.getAttribute('data-display') === layot) {
+      if (currentLayout === layot) {
         btnEl.classList.add('active');
       }
     });
@@ -125,15 +126,11 @@ export class FilterController {
   }
 
   public copyUrl(btn: HTMLButtonElement): void {
-    const copytext = document.createElement('input');
-    copytext.value = window.location.href;
-    document.body.appendChild(copytext);
-    copytext.select();
-    document.execCommand('copy');
-    document.body.removeChild(copytext);
-    btn.textContent = 'Адрес скопирован!';
-    setTimeout(() => {
-      btn.textContent = 'Копировать адрес';
-    }, 2000);
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      btn.textContent = 'Адрес скопирован!';
+      setTimeout(() => {
+        btn.textContent = 'Копировать адрес';
+      }, 1500);
+    });
   }
 }

@@ -71,8 +71,6 @@ export class HomePageController {
   private changeCountOfFilteredProduct(): void {
     const count = this.filteredProduct.length;
     const countWrapper = document.querySelector('.filtered-product__count') as HTMLDivElement;
-    if (count > 0) { countWrapper.textContent = `${declOfNum(['Найден', 'Найдено', 'Найдены'], count, ['товар', 'товара', 'товаров'])}`; } else {
-      countWrapper.textContent = '';
-    }
+    countWrapper.textContent = count > 0 ? `${declOfNum(['Найден', 'Найдено', 'Найдены'], count, ['товар', 'товара', 'товаров'])}` : '';
   }
 }

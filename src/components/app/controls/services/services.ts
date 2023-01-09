@@ -33,8 +33,10 @@ export function getIdFromUrl(): number {
 }
 
 export function declOfNum(verb: string[], numb: number, titles: string[]): string {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return `${verb[(numb % 100 > 4 && numb % 100 < 20) ? 2 : cases[(numb % 10 < 5) ? numb % 10 : 5]]}
-  ${numb}
-  ${titles[(numb % 100 > 4 && numb % 100 < 20) ? 2 : cases[(numb % 10 < 5) ? numb % 10 : 5]]}`;
+  const tens: number = Math.abs(numb) % 100;
+  const ones: number = tens % 10;
+  if (tens > 10 && tens < 20) { return `${verb[2]} ${numb} ${titles[2]}`; }
+  if (ones > 1 && ones < 5) { return `${verb[1]} ${numb} ${titles[1]}`; }
+  if (ones === 1) { return `${verb[0]} ${numb} ${titles[0]}`; }
+  return `${verb[2]} ${numb} ${titles[2]}`;
 }
