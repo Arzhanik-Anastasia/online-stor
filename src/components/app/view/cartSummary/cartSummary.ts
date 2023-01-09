@@ -29,10 +29,12 @@ export class CartSummary extends BaseComponent {
 
   public renderNewPrice():void {
     const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
+    const totalPrice = this.element.querySelector('.total__price') as HTMLDivElement;
     const promo = JSON.parse(localStorage.getItem('promo') as string);
     const discount = promo ? promo.length / 10 : null;
     if (discount) {
       newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart) - (calcTotalPrice(this.productsInCart) * discount)}`;
+      totalPrice.classList.add('old');
     }
   }
 }

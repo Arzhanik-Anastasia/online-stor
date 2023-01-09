@@ -91,8 +91,10 @@ export class CartPageListener {
             activeBlock.renderBlock(promoBlock, inputPromo.value);
             const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
             const discount = this.applyPromo ? this.applyPromo.length / 10 : null;
-            const totalPrice: number = discount ? calcTotalPrice(this.productsInCart, discount) : calcTotalPrice(this.productsInCart);
+            const totalPrice: number = discount ? calcTotalPrice(getProductsInCart(), discount) : calcTotalPrice(getProductsInCart());
             newPriceBlock.innerHTML = `Новая цена ${totalPrice}`;
+            const totalPriceBlock = document.querySelector('.total__price') as HTMLDivElement;
+            totalPriceBlock.classList.add('old');
             localStorage.setItem('promo', JSON.stringify(this.applyPromo));
             promoBlock.querySelector('.btn__promo')?.remove();
             this.productDetailsController.changeHeaderInfo();

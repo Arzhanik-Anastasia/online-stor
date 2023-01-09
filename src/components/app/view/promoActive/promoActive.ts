@@ -37,7 +37,12 @@ export class PromoActive extends BaseComponent {
         localStorage.setItem('promo', JSON.stringify(applyPromo));
         const totalPrice:number = calcTotalPrice(this.productsInCart);
         const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
-        newPriceBlock.innerHTML = applyPromo.length ? `Новая цена ${totalPrice}` : '';
+        if (applyPromo.length) {
+          newPriceBlock.innerHTML = `Новая цена ${totalPrice}`;
+        } else {
+          newPriceBlock.innerHTML = '';
+          document.querySelector('.total__price')?.classList.remove('old');
+        }
         (document.querySelector('.promo') as HTMLInputElement).value = '';
         document.querySelector('.total__price')!.textContent = `Общая стоимость: ${totalPrice}`;
         this.productDetailsController.changeHeaderInfo();

@@ -62,6 +62,7 @@ export class CartPageController {
     if (discount) {
       const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
       newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart) - (calcTotalPrice(this.productsInCart) * discount)}`;
+      totalPrice.classList.add('old');
     }
     totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
     totalPrice.innerHTML = `Общая стоимость: ${calcTotalPrice(this.productsInCart)}`;
