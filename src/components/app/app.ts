@@ -34,7 +34,7 @@ export default class App {
     const idProduct:number = +path.split('=')[1];
     let currentPage: null | HomePage | ProductPage | CartPage | NotFoundPage = null;
     if (path) {
-      if (path.includes('product') && idProduct <= data.length && idProduct >= data.length) {
+      if (path.includes('product') && idProduct <= data.length && idProduct > 0) {
         currentPage = new ProductPage(idProduct);
       } else if (path === '#cart') {
         currentPage = new CartPage();
