@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import data from '../../../../data';
 import { ICartProduct, IProduct } from '../../../../types';
+import { CartSummary } from '../../view/cartSummary/cartSummary';
 import { ProductInCartItem } from '../../view/productInCartItem/productInCartItem';
 import { ProductDetailsController } from '../productDetails/productDetailsController';
 import {
@@ -10,11 +11,14 @@ import {
 export class CartPageController {
   private productsInCart: ICartProduct;
 
+  private cartSummary: CartSummary;
+
   private productDetailsController: ProductDetailsController;
 
   constructor() {
     this.productsInCart = getProductsInCart();
     this.productDetailsController = new ProductDetailsController();
+    this.cartSummary = new CartSummary();
   }
 
   private renderProducts(): HTMLElement[] {
@@ -30,6 +34,9 @@ export class CartPageController {
     const counterProduct: string[] = Object.keys(this.productsInCart);
     if (counterProduct.length > 0) {
       productsInCartListNode.append(...this.renderProducts());
+      const wrapper = document.querySelector('.wrapper__cart') as HTMLDivElement;
+      wrapper.append(this.cartSummary.element);
+      this.cartSummary.renderNewPrice();
     } else {
       productsInCartListNode.textContent = 'Нет товаров в корзине';
     }
@@ -47,9 +54,15 @@ export class CartPageController {
   }
 
   private changeCountInSummary(): void {
-    const totalCount = document.querySelector('.total__count') as HTMLDivElement;
-    totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
     const totalPrice = document.querySelector('.total__price') as HTMLDivElement;
+    const totalCount = document.querySelector('.total__count') as HTMLDivElement;
+    const promo = JSON.parse(localStorage.getItem('promo') as string);
+    const discount = promo ? promo.length / 10 : null;
+    if (discount) {
+      const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
+      newPriceBlock.innerHTML = `Новая цена ${calcTotalPrice(this.productsInCart) - (calcTotalPrice(this.productsInCart) * discount)}`;
+    }
+    totalCount.innerHTML = `Общее количество: ${calcTotalCount(this.productsInCart)}`;
     totalPrice.innerHTML = `Общая стоимость: ${calcTotalPrice(this.productsInCart)}`;
   }
 
@@ -76,7 +89,7 @@ export class CartPageController {
   }
 
   public incProductCount(id: number): void {
-    this.productDetailsController.addToCart(id/* , 'inc' */);
+    this.productDetailsController.addToCart(id);
     this.productDetailsController.changeHeaderInfo();
     this.changeCountInControl(id);
     this.changeCountInSummary();

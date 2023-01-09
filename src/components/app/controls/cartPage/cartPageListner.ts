@@ -1,7 +1,9 @@
 import data from '../../../../data';
 import { ICartProduct, IProduct } from '../../../../types';
 import ModalBuy from '../../pages/modalBuy/modalBuy';
-import { getProductsInCart } from '../services/services';
+import { PromoActive } from '../../view/promoActive/promoActive';
+import { ProductDetailsController } from '../productDetails/productDetailsController';
+import { calcTotalPrice, getProductsInCart } from '../services/services';
 import { CartPageController } from './cartPageController';
 
 export class CartPageListener {
@@ -11,16 +13,28 @@ export class CartPageListener {
 
   productsInCart:ICartProduct;
 
+  promoCode: string[];
+
+  productDetailsController: ProductDetailsController;
+
+  applyPromo: string[];
+
   constructor() {
     this.cartPageController = new CartPageController();
     this.productsInCart = getProductsInCart();
+    this.productDetailsController = new ProductDetailsController();
     this.modal = new ModalBuy();
+    this.promoCode = ['rss', 'js'];
+    this.applyPromo = [];
+    this.getPromo();
   }
 
   public initListener():void {
     this.addListenerToIncBtn();
     this.addListenerToDecBtn();
     this.addListenerBuy();
+    this.addListenerPromo();
+    this.applyPromoCode();
   }
 
   private addListenerToIncBtn(): void {
@@ -51,8 +65,57 @@ export class CartPageListener {
 
   private addListenerBuy(): void {
     const btnBuy = document.querySelector('.cart__summary-btn') as HTMLButtonElement;
-    btnBuy.addEventListener('click', () => {
-      this.modal.renderView();
+    if (btnBuy) {
+      btnBuy.addEventListener('click', () => {
+        this.modal.renderView();
+      });
+    }
+  }
+
+  private addListenerPromo(): void {
+    const inputPromo = document.querySelector('.promo') as HTMLInputElement;
+    const promoBlock = document.querySelector('.promo-block') as HTMLDivElement;
+    if (inputPromo) {
+      inputPromo.addEventListener('input', () => {
+        this.getPromo();
+        const promoBlockButton = document.createElement('button');
+        promoBlockButton.classList.add('btn__promo');
+        if (this.promoCode.includes(inputPromo.value) && !this.applyPromo.includes(inputPromo.value)) {
+          promoBlockButton.innerHTML = 'Add promo';
+          promoBlock.append(promoBlockButton);
+          promoBlockButton.addEventListener('click', () => {
+            if (!this.applyPromo.includes(inputPromo.value)) {
+              this.applyPromo.push(inputPromo.value);
+            }
+            const activeBlock = new PromoActive();
+            activeBlock.renderBlock(promoBlock, inputPromo.value);
+            const newPriceBlock = document.querySelector('.new__price') as HTMLDivElement;
+            const discount = this.applyPromo ? this.applyPromo.length / 10 : null;
+            const totalPrice: number = discount ? calcTotalPrice(this.productsInCart, discount) : calcTotalPrice(this.productsInCart);
+            newPriceBlock.innerHTML = `Новая цена ${totalPrice}`;
+            localStorage.setItem('promo', JSON.stringify(this.applyPromo));
+            promoBlock.querySelector('.btn__promo')?.remove();
+            this.productDetailsController.changeHeaderInfo();
+          });
+        } else if (!this.promoCode.includes(inputPromo.value)) {
+          const btnPromo = document.querySelector('.btn__promo') as HTMLButtonElement;
+          if (btnPromo) btnPromo.remove();
+        }
+      });
+    }
+  }
+
+  private getPromo(): void {
+    const promoFromLocal = localStorage.getItem('promo') as string;
+    this.applyPromo = promoFromLocal ? JSON.parse(promoFromLocal) : [];
+  }
+
+  private applyPromoCode(): void {
+    this.getPromo();
+    const promoBlock = document.querySelector('.promo-block') as HTMLDivElement;
+    this.applyPromo.forEach((item) => {
+      const activeBlock = new PromoActive();
+      activeBlock.renderBlock(promoBlock, item);
     });
   }
 }

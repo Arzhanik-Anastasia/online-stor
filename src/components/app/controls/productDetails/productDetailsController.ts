@@ -55,7 +55,9 @@ export class ProductDetailsController {
     const headerCart = document.querySelector('.header__count') as HTMLElement;
     const counter = Object.values(this.productsInCart).reduce((acc, curr) => acc + curr, 0);
     const headerTotalPrice = document.querySelector('.header__total-price') as HTMLDivElement;
-    const totalPrice: number = calcTotalPrice(this.productsInCart);
+    const promo = JSON.parse(localStorage.getItem('promo') as string);
+    const discount = promo ? promo.length / 10 : null;
+    const totalPrice: number = discount ? calcTotalPrice(this.productsInCart, discount) : calcTotalPrice(this.productsInCart);
     headerCart.innerHTML = counter.toString();
     headerTotalPrice.innerHTML = `Cart total: ${totalPrice}`;
   }
