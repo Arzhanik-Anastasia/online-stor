@@ -10,6 +10,7 @@ export class SearchBar extends BaseComponent {
   private renderBlock():void {
     this.element.innerHTML = `
             <input type="search" placeholder="Найти..." class="search__input">
+            <div class="filtered-product__count"></div>
         `;
   }
 }

@@ -30,6 +30,7 @@ export class HomePageListener {
     this.addListenerReset();
     this.filtersController.loadFilters();
     this.addListenerChangeLayoutBtn();
+    this.addEventListenerCopyUrl();
   }
 
   private addListenerToSortSelect(): void {
@@ -165,10 +166,9 @@ export class HomePageListener {
     const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
     layoutBtns.forEach((btn) => {
       btn.addEventListener('click', (e: Event) => {
-        layoutBtns.forEach((btnEl) => { btnEl.classList.remove('active'); });
-        (e.target as HTMLButtonElement).classList.add('active');
         const layout = (e.target as HTMLButtonElement).getAttribute('data-display') as string;
         this.filtersController.changeLayout(layout);
+        this.filtersController.setLayoutActiveBtn(layout);
       });
     });
   }
@@ -191,6 +191,13 @@ export class HomePageListener {
     });
   }
 
+  private addEventListenerCopyUrl(): void {
+    const copyUrlBtn = document.querySelector('.copy__url') as HTMLButtonElement;
+    copyUrlBtn.addEventListener('click', () => {
+      this.filtersController.copyUrl(copyUrlBtn);
+    });
+  }
+  
   private addListenerSearch(): void {
     const inputSearch = document.querySelector('.search__input') as HTMLInputElement;
     inputSearch.addEventListener('input', () => {

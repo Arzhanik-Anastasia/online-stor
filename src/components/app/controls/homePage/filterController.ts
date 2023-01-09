@@ -99,7 +99,27 @@ export class FilterController {
     });
   }
 
-  public changeLayout(layout: string): void {
+  public getCurrentLayout():string {
+    return JSON.parse(localStorage.getItem('layot') as string) ?? 'list';
+  }
+
+  private setCurrentLayout(layot: string | null): void {
+    localStorage.setItem('layot', JSON.stringify(layot));
+  }
+
+  public setLayoutActiveBtn(layot: string | null): void {
+    const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
+    layoutBtns.forEach((btnEl) => {
+      const currentLayout = btnEl.getAttribute('data-display') as string;
+      btnEl.classList.remove('active');
+      if (currentLayout === layot) {
+        btnEl.classList.add('active');
+      }
+    });
+  }
+
+  public changeLayout(layout: string | null): void {
+    this.setCurrentLayout(layout);
     const productList = document.querySelector('.product__list') as HTMLDivElement;
     if (layout === 'grid') {
       productList.classList.add('list__grid-layout');
@@ -112,5 +132,14 @@ export class FilterController {
       this.toggleClasslist(productList, '.product__item', 'item__grid-layout', 'remove');
       this.toggleClasslist(productList, '.product__item-link', 'item-link__grid-layout', 'remove');
     }
+  }
+
+  public copyUrl(btn: HTMLButtonElement): void {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      btn.textContent = 'Адрес скопирован!';
+      setTimeout(() => {
+        btn.textContent = 'Копировать адрес';
+      }, 1500);
+    });
   }
 }

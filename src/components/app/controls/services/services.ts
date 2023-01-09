@@ -31,3 +31,12 @@ export function getIdFromUrl(): number {
   const idProduct:number = +path.split('=')[1];
   return idProduct;
 }
+
+export function declOfNum(verb: string[], numb: number, titles: string[]): string {
+  const tens: number = Math.abs(numb) % 100;
+  const ones: number = tens % 10;
+  if (tens > 10 && tens < 20) { return `${verb[2]} ${numb} ${titles[2]}`; }
+  if (ones > 1 && ones < 5) { return `${verb[1]} ${numb} ${titles[1]}`; }
+  if (ones === 1) { return `${verb[0]} ${numb} ${titles[0]}`; }
+  return `${verb[2]} ${numb} ${titles[2]}`;
+}
