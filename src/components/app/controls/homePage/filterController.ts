@@ -55,9 +55,16 @@ export class FilterController {
     localStorage.setItem('store-filter', JSON.stringify(this.filters));
   }
 
+  public changeSearch(str: string): void {
+    this.filters.search = str;
+    localStorage.setItem('store-filter', JSON.stringify(this.filters));
+  }
+
   public loadFilters(): void {
     const categories = this.filters.category;
-    const { brands, colors, sort } = this.filters;
+    const {
+      brands, colors, sort, search,
+    } = this.filters;
     if (colors && colors.length !== DEFAULT_FILTERS.colors.length) {
       colors.forEach((color:string) => {
         document.querySelector(`[data-color='${color}']`)?.classList.add('active');
@@ -77,6 +84,8 @@ export class FilterController {
       const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
       sortSelect.value = sort;
     }
+    const inputSearch = document.querySelector('.search__input') as HTMLInputElement;
+    inputSearch.value = search;
   }
 
   private toggleClasslist(parent: HTMLDivElement, selector: string, style: string, method: string): void {
@@ -90,7 +99,27 @@ export class FilterController {
     });
   }
 
-  public changeLayout(layout: string): void {
+  public getCurrentLayout():string {
+    return JSON.parse(localStorage.getItem('layot') as string) ?? 'list';
+  }
+
+  private setCurrentLayout(layot: string | null): void {
+    localStorage.setItem('layot', JSON.stringify(layot));
+  }
+
+  public setLayoutActiveBtn(layot: string | null): void {
+    const layoutBtns = document.querySelectorAll('.layout__btn') as NodeListOf<Element>;
+    layoutBtns.forEach((btnEl) => {
+      const currentLayout = btnEl.getAttribute('data-display') as string;
+      btnEl.classList.remove('active');
+      if (currentLayout === layot) {
+        btnEl.classList.add('active');
+      }
+    });
+  }
+
+  public changeLayout(layout: string | null): void {
+    this.setCurrentLayout(layout);
     const productList = document.querySelector('.product__list') as HTMLDivElement;
     if (layout === 'grid') {
       productList.classList.add('list__grid-layout');
@@ -103,5 +132,14 @@ export class FilterController {
       this.toggleClasslist(productList, '.product__item', 'item__grid-layout', 'remove');
       this.toggleClasslist(productList, '.product__item-link', 'item-link__grid-layout', 'remove');
     }
+  }
+
+  public copyUrl(btn: HTMLButtonElement): void {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      btn.textContent = 'Адрес скопирован!';
+      setTimeout(() => {
+        btn.textContent = 'Копировать адрес';
+      }, 1500);
+    });
   }
 }

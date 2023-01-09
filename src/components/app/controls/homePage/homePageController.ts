@@ -1,6 +1,7 @@
 import { IFilters, IProduct } from '../../../../types';
 import { ProductCard } from '../../view/productCard/productCard';
 import { FilterController } from './filterController';
+import { declOfNum } from '../services/services';
 import data from '../../../../data';
 
 export class HomePageController {
@@ -26,11 +27,15 @@ export class HomePageController {
   public renderList(): void {
     const productListNode = document.querySelector('.product__list') as HTMLDivElement;
     productListNode.innerHTML = '';
+    this.changeCountOfFilteredProduct();
     if (this.filteredProduct.length > 0) {
       productListNode.append(...this.renderAllProduct());
     } else {
       productListNode.textContent = 'Совпадений не найдено';
     }
+    const layot = this.filterController.getCurrentLayout() as string;
+    this.filterController.changeLayout(layot);
+    this.filterController.setLayoutActiveBtn(layot);
   }
 
   public sortCards():void {
@@ -49,6 +54,7 @@ export class HomePageController {
 
   public applyFilter(): void {
     this.filters = this.filterController.getFilter();
+    let { search } = this.filters;
     this.filteredProduct = this.allProduct.filter(
       (item) => (this.filters.category.indexOf(item.category) !== -1
         && this.filters.colors.indexOf(item.color) !== -1
@@ -59,7 +65,22 @@ export class HomePageController {
         && item.stock <= this.filters.maxStock
       ),
     );
+    if (search !== '') {
+      search = search.toLowerCase();
+      this.filteredProduct = this.filteredProduct.filter((item:IProduct) => (item.name.toLowerCase().includes(search))
+                        || item.brand.toLowerCase().includes(search)
+                        || item.category.toLowerCase().includes(search)
+                        || item.color.toLowerCase().includes(search)
+                        || item.season.toLowerCase().includes(search)
+                        || item.description.toLowerCase().includes(search));
+    }
     this.sortCards();
     this.renderList();
+  }
+
+  private changeCountOfFilteredProduct(): void {
+    const count = this.filteredProduct.length;
+    const countWrapper = document.querySelector('.filtered-product__count') as HTMLDivElement;
+    countWrapper.textContent = count > 0 ? `${declOfNum(['Найден', 'Найдено', 'Найдены'], count, ['товар', 'товара', 'товаров'])}` : '';
   }
 }

@@ -1,5 +1,5 @@
 .sort {
-    width: 30%;
+    width: 40%;
     text-align: right;
 }
 
@@ -14,7 +14,8 @@
   cursor: pointer;
 }
 
-.reset__filters {
+.reset__filters,
+.copy__url {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -28,4 +29,9 @@
     background-color: #0069d9;
     border-color: #0062cc;
     cursor: pointer;
+}
+
+.top-panel__btns {
+    display: flex;
+    justify-content: space-between;
 }

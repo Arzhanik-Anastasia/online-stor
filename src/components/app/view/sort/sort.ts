@@ -20,7 +20,10 @@ export class Sort extends BaseComponent {
         <option value="sort-price-max">По цене по возрастанию</option>
         <option value="sort-price-min">По цене по убыванию</option>
       </select>
-      <button class="reset__filters">Сброс фильтров</button>
+      <div class="top-panel__btns">
+        <button class="reset__filters">Сброс фильтров</button>
+        <button class="copy__url">Копировать адрес</button>
+      </div>
     `;
   }
 

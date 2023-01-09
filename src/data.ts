@@ -9,6 +9,7 @@ export const DEFAULT_FILTERS = {
   minPrice: 110,
   maxPrice: 490,
   sort: 'sort-name-max',
+  search: '',
 };
 
 export enum Brand {
@@ -298,7 +299,7 @@ const data: IProduct[] = [
 
   {
     id: 20,
-    name: 'REEBOK GURESU 2.0 MAROON/PROPNK/MIDSHA',
+    name: 'REEBOK GURESU 2.0 MAROON/ PROPNK/ MIDSHA',
     brand: Brand.reebok,
     category: Category.running,
     price: 168,

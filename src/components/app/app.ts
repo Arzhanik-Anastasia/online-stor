@@ -4,6 +4,7 @@ import NotFoundPage from './pages/notFoundPage/notFoundPage';
 import ProductPage from './pages/productPage/productPageView';
 import Footer from './view/footer/footer';
 import Header from './view/header/header';
+import data from '../../data';
 
 export default class App {
   static header: Header;
@@ -33,7 +34,7 @@ export default class App {
     const idProduct:number = +path.split('=')[1];
     let currentPage: null | HomePage | ProductPage | CartPage | NotFoundPage = null;
     if (path) {
-      if (path.includes('product')) {
+      if (path.includes('product') && idProduct <= data.length && idProduct >= data.length) {
         currentPage = new ProductPage(idProduct);
       } else if (path === '#cart') {
         currentPage = new CartPage();
