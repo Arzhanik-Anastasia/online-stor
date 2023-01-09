@@ -39,6 +39,7 @@ export class CartPageController {
       this.cartSummary.renderNewPrice();
     } else {
       productsInCartListNode.textContent = 'Нет товаров в корзине';
+      if (document.querySelector('.cart__summary')) document.querySelector('.cart__summary')!.remove();
     }
   }
 
@@ -83,6 +84,7 @@ export class CartPageController {
       if (!document.querySelector('.productInCart__item')) {
         const productsInCartListNode = document.querySelector('.products__inCart') as HTMLDivElement;
         productsInCartListNode.textContent = 'Нет товаров в корзине';
+        if (document.querySelector('.cart__summary')) document.querySelector('.cart__summary')!.remove();
       }
     });
     this.resetIndexes();
