@@ -1,0 +1,11 @@
+.wrapper__main,
+.top__panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top__panel {
+    width: 73%;
+    margin-left: auto;
+    margin-bottom: 10px;
+}

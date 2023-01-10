@@ -1,0 +1,39 @@
+.stock__range {
+  margin: 20px 0;
+  padding: 30px 0;
+  box-shadow: 0px 1px 2px rgb(58 58 68 / 24%), 0px 2px 4px rgb(90 91 106 / 24%);
+  border-radius: 8px;
+  padding: 10px;
+}
+.stock__range .noUi-horizontal {
+  height: 6px;
+}
+
+.stock__range .noUi-horizontal .noUi-handle {
+  border-radius:50px;
+  width: 14px;
+  height: 14px;
+  right: -10px;
+}
+
+.stock__range  .noUi-handle:before,
+.stock__range .noUi-handle:after {
+  height: 0;
+  width: 0;
+}
+.stock__range .noUi-connect {
+  background: #0069d9;
+}
+.stock__title {
+  margin: 20px 0;
+}
+
+#stock-slider {
+    width: 70%;
+}
+
+.stock-slider-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
